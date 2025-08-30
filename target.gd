@@ -2,14 +2,14 @@ class_name Target
 extends PanelContainer
 
 var number_range := Vector2i(10,60)
-var number_count := 4
-var target_range := Vector2i(4,20) * number_count
 
 var solution: String
 
 var OPS = ["+","-","*","/"]
 
 @onready var root: Root = $".."
+@onready var target_range := Vector2i(4,20) * root.number_count
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,6 +21,9 @@ func _ready() -> void:
 	root.target = -1
 	
 	root.puzzle_seed *= (root.difficulty as int + 1)
+	@warning_ignore("narrowing_conversion")
+	root.puzzle_seed *= root.number_count / 4.0
+	assert (root.puzzle_seed is int,"Puzzle seed must be an integer, float found.")
 	
 	while root.target == -1:
 		root.starting_numbers = create_numbers(root.puzzle_seed)
@@ -38,7 +41,7 @@ func create_numbers(puzzle_seed:int=-1) -> Array[int]:
 	if puzzle_seed != -1:
 		seed(puzzle_seed)
 	var numbers: Array[int] = []
-	for __ in range(number_count):
+	for __ in range(root.number_count):
 		var n = randi_range(number_range.x,number_range.y)
 		while n in numbers:
 			n = randi_range(number_range.x,number_range.y)

@@ -22,6 +22,8 @@ func _ready() -> void:
 		text = "Easy Mode"
 		tooltip_text = EASY_MODE_TOOLTIP
 		icon = easy_mode_icon
+		
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -35,6 +37,7 @@ func _on_pressed() -> void:
 		new_scene = MOBILE_SCENE.instantiate()
 	else:
 		new_scene = MAIN_SCENE.instantiate()
+	new_scene.number_count = root.number_count
 	new_scene.difficulty = button_pressed as int
 	new_scene.date = root.date
 	new_scene.date_override = root.date_override
