@@ -27,5 +27,11 @@ offset_bottom = 168.0
 [node name="Difficulty" parent="VBoxContainer" index="0"]
 theme_override_font_sizes/font_size = 30
 
-[node name="Help" parent="VBoxContainer" index="1"]
+[node name="Small" parent="VBoxContainer/CountSelection" index="0"]
+theme_override_font_sizes/font_size = 30
+
+[node name="Large" parent="VBoxContainer/CountSelection" index="1"]
+theme_override_font_sizes/font_size = 30
+
+[node name="Help" parent="VBoxContainer" index="2"]
 custom_minimum_size = Vector2(50, 50)

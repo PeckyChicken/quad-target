@@ -14,7 +14,9 @@ var target: int
 var target_tile: NumberTile
 
 var difficulty: int = 1
-#0 = easy, 1 = normal
+#0 = easy, 1 = hard
+
+var number_count: int = 4
 
 var starting_numbers: Array[int]
 

@@ -29,6 +29,7 @@ func date_selected(date,__):
 		new_scene = MAIN_SCENE.instantiate()
 	
 	new_scene.difficulty = $"..".difficulty
+	new_scene.number_count = $"..".number_count
 	new_scene.date = date
 	new_scene.date_override = true
 	get_tree().root.add_child(new_scene)
