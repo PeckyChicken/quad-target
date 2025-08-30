@@ -155,8 +155,10 @@ func end_drag():
 
 func drag(event:InputEventMouseMotion):
 	var old_position = position
-	position += event.relative
+	position = event.position + drag_offset
 	movement += (position - old_position).length()
+	
+	old_position = position
 	position = position.clamp(Vector2.ZERO,get_viewport_rect().size-self.size)
 	
 	find_overlap()

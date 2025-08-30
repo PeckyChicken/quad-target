@@ -1,7 +1,7 @@
 class_name Target
 extends PanelContainer
 
-var number_range := Vector2i(2,60)
+var number_range := Vector2i(10,60)
 var number_count := 4
 var target_range := Vector2i(4,20) * number_count
 
@@ -19,6 +19,8 @@ func _ready() -> void:
 		OPS = ["+","-"]
 	
 	root.target = -1
+	
+	root.puzzle_seed *= (root.difficulty as int + 1)
 	
 	while root.target == -1:
 		root.starting_numbers = create_numbers(root.puzzle_seed)
