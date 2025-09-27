@@ -67,10 +67,12 @@ func _on_click(event: InputEvent):
 
 	super(event)
 
+func return_home():
+	if not draggable:
+		return
+	add_to_container(storage_container)
+	
+	super()
+
 func _input(event: InputEvent):
 	super(event)
-	#
-	#if just_released and not dragging:
-		#Events.PlaySound.emit("drop_number",global_position)
-
-		
