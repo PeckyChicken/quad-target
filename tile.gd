@@ -12,7 +12,13 @@ var click_threshold: float ##Distance the mouse has to move before it registers 
 var dragging: bool = false
 var drag_offset: Vector2
 
-var just_released: int = 0
+enum DragState {
+	NONE,
+	DRAGGING,
+	JUST_RELEASED
+}
+
+var drag_state: DragState = DragState.NONE
 
 @export var type: Root.Tiles
 
@@ -62,23 +68,19 @@ func rescale(new_scale):
 func return_home():
 	if not draggable:
 		return
-	if self is NumberTile:
-		add_to_container(storage_container)
-	elif self is OperationTile:
-		if parent_container != operation_container:
-			queue_free()
 
 func add_to_container(container: NumberContainer,temp_position_override=null):
 	if container.max_size >= 0:
 		assert (container.length(false) <= container.max_size,"Container overflow error: Length: %s, Max Size: %s, Contents: %s" % [container.length(),container.max_size,str(container.get_children())])
+	
 	var temp_position
 	
 	if temp_position_override:
 		temp_position = temp_position_override
 	else:
 		temp_position = global_position
-	reparent(container)
 	
+	reparent(container)
 	parent_container = container
 	
 	overlap = container
@@ -86,10 +88,15 @@ func add_to_container(container: NumberContainer,temp_position_override=null):
 	container.tile_added(self)
 	
 	for node in container.get_children():
+		
 		if node == self:
 			continue
 		if node.global_position.x >= temp_position.x:
 			container.move_child(node,container.get_child_count()-1)
+	
+	if self is not ShadowTile:
+		pass
+		
 
 func delete_shadow():
 	if shadow:
@@ -130,32 +137,37 @@ func create_shadow(container:NumberContainer):
 	shadow.add_to_container(container,global_position)
 
 func _process(_delta: float) -> void:
-	if just_released == 1:
+	if drag_state == DragState.JUST_RELEASED:
 		await get_tree().process_frame
-		just_released = 0
+		
+		drag_state = DragState.NONE
 
 func end_drag():
 	if not dragging: return
 	
-	just_released = -1 * just_released
+	if drag_state == DragState.DRAGGING:
+		drag_state = DragState.JUST_RELEASED
 	dragging = false
 	delete_shadow()
-	if just_released == 1:
+	if drag_state == DragState.JUST_RELEASED:
 		if movement <= click_threshold:
 			root.moves += 1
 			quick_move()
 			return
 	
 	if overlap in root.containers:
-		if not parent_container == overlap.get_child(0):
+		if parent_container != overlap.get_child(0):
+			#print("----------------------------")
+			#print("Adding to container ",overlap)
+			
 			root.moves += 1
 			add_to_container(overlap.get_child(0))
 			if parent_container is AnswerContainer:
 				parent_container.recreate_expression()
-
+		
 func drag(event:InputEventMouseMotion):
 	var old_position = position
-	position = event.position + drag_offset
+	position = event.global_position + drag_offset
 	movement += (position - old_position).length()
 	
 	old_position = position
@@ -196,7 +208,7 @@ func quick_move(container=null):
 func _on_click(event: InputEventMouseButton) -> void:
 	await get_tree().process_frame
 	movement = 0
-	just_released = -1
+	drag_state = DragState.DRAGGING
 	if parent_container:
 		previous_parent = parent_container
 		find_overlap()
@@ -215,5 +227,5 @@ func _on_click(event: InputEventMouseButton) -> void:
 func _on_gui_input(event: InputEvent) -> void:
 	if not draggable:
 		return
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and event.is_pressed():
 		_on_click(event)

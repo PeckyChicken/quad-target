@@ -23,6 +23,13 @@ func quick_move(container=null):
 	super(container)
 	if previous_parent is OperationContainer:
 		operation_container.reset_stock()
+
+func return_home():
+	if not draggable:
+		return
+	if parent_container != operation_container:
+		queue_free()
+	super()
 	
 func _on_click(event: InputEvent):
 	if event.is_pressed():
@@ -40,13 +47,14 @@ func _on_click(event: InputEvent):
 				if get_global_rect().intersects(operation_container.get_global_rect()):
 					queue_free()
 	
-	if draggable:
+	if draggable and event.is_pressed():
 		super(event)
 
 func end_drag():
 	if not dragging:
 		return
 	super()
+	
 	Events.PlaySound.emit("drop_operation",global_position)
 	
 	if parent_container == null:
@@ -55,7 +63,6 @@ func end_drag():
 
 func _on_gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
-		
 		_on_click(event)
 
 func _input(event: InputEvent):
