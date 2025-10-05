@@ -234,7 +234,7 @@ mouse_filter = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 button_pressed = true
-text = "Hard Mode"
+text = "Bug Discovered"
 icon = ExtResource("10_4c57u")
 script = ExtResource("11_efxa6")
 

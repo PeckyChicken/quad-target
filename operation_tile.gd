@@ -38,8 +38,9 @@ func _on_click(event: InputEvent):
 		
 		if operation == "=":
 			Events.PlaySound.emit("drop_operation",global_position)
-			
 			Events.ResetTiles.emit()
+			await get_tree().process_frame
+			add_move()
 		if draggable:
 			await get_tree().process_frame
 			

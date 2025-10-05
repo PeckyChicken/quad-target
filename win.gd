@@ -56,7 +56,7 @@ func _on_switch_pressed() -> void:
 	var new_scene: Root
 	new_scene = MAIN_SCENE.instantiate()
 	
-	new_scene.difficulty = !bool(root.difficulty) as int
+	new_scene.difficulty = (root.difficulty as int + 1) as Root.Difficulty
 	new_scene.date = root.date
 	new_scene.date_override = root.date_override
 	get_tree().root.add_child(new_scene)

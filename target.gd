@@ -14,28 +14,28 @@ var OPS = ["+","-","*","/"]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await get_tree().process_frame
-	
+		
 	if root.difficulty == 0:
 		OPS = ["+","-"]
 	
-	root.target = -1
 	
-	root.puzzle_seed *= (root.difficulty as int + 1)
-	@warning_ignore("narrowing_conversion")
-	root.puzzle_seed *= root.number_count / 4.0
-	assert (root.puzzle_seed is int,"Puzzle seed must be an integer, float found.")
-	
-	while root.target == -1:
-		root.starting_numbers = create_numbers(root.puzzle_seed)
-		root.target = create_target(root.starting_numbers,root.puzzle_seed)
-		root.puzzle_seed += 1
-	
-	root.puzzle_seed -= 1
-	
+	if not root.save_data["success"]:
+		root.target = -1
+		
+		root.puzzle_seed *= (root.difficulty as int + 1)
+		@warning_ignore("narrowing_conversion")
+
+		assert (root.puzzle_seed is int,"Puzzle seed must be an integer, float found.")
+		
+		while root.target == -1:
+			root.starting_numbers = create_numbers(root.puzzle_seed)
+			root.target = create_target(root.starting_numbers,root.puzzle_seed)
+			root.puzzle_seed += 1
+		
+		root.puzzle_seed -= 1
 	
 	root.create_number_tiles(root.starting_numbers)
 	root.create_target_tile()
-	
 
 func create_numbers(puzzle_seed:int=-1) -> Array[int]:
 	if puzzle_seed != -1:

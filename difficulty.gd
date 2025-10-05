@@ -13,6 +13,7 @@ const EASY_MODE_TOOLTIP = "Puzzles in Easy Mode will\nonly require addition and 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	await get_tree().process_frame
 	button_pressed = root.difficulty as bool
 	if root.difficulty == 1:
 		text = "Hard Mode"
@@ -38,7 +39,9 @@ func _on_pressed() -> void:
 	else:
 		new_scene = MAIN_SCENE.instantiate()
 	new_scene.number_count = root.number_count
-	new_scene.difficulty = button_pressed as int
+	Save.remove_user_data(root.save_name,"difficulty")
+	new_scene.difficulty = button_pressed as int as Root.Difficulty
+	print(new_scene.difficulty)
 	new_scene.date = root.date
 	new_scene.date_override = root.date_override
 	get_tree().root.add_child(new_scene)
