@@ -19,6 +19,7 @@ func _ready() -> void:
 		$Number.anchor_bottom = 1
 	
 	super()
+	Events.MakeNumberList.connect(add_self_to_number_list)
 
 func find_overlap():
 	super()
@@ -33,6 +34,15 @@ func find_overlap():
 		
 		return
 
+func add_self_to_number_list():
+	if not draggable:
+		return
+	await get_tree().process_frame
+	if history:
+		root.total_numbers.append(history)
+	else:
+		root.total_numbers.append(number)
+
 func end_drag():
 	if not dragging:
 		return
@@ -46,7 +56,7 @@ func end_drag():
 				return
 			if not self.expression:
 				return
-			root.moves += 1
+			add_move()
 			for child in answer_container.get_children():
 				child.queue_free()
 			add_to_container(answer_container)

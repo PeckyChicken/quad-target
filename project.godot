@@ -21,6 +21,7 @@ config/icon="res://logo_small.png"
 
 Events="*res://EVENTS.gd"
 Audio="*res://AUDIO.gd"
+Save="*res://GAME_SAVE.gd"
 
 [debug]
 

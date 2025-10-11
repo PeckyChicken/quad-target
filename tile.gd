@@ -142,6 +142,13 @@ func _process(_delta: float) -> void:
 		
 		drag_state = DragState.NONE
 
+func add_move():
+	root.moves += 1
+	Events.MakeNumberList.emit()
+	await get_tree().process_frame
+	Save.save(root.save_name,{"moves":root.moves,"time":root.timer},root.date,root.total_numbers,root.target,false)
+	
+
 func end_drag():
 	if not dragging: return
 	
@@ -151,7 +158,7 @@ func end_drag():
 	delete_shadow()
 	if drag_state == DragState.JUST_RELEASED:
 		if movement <= click_threshold:
-			root.moves += 1
+			add_move()
 			quick_move()
 			return
 	
@@ -160,7 +167,7 @@ func end_drag():
 			#print("----------------------------")
 			#print("Adding to container ",overlap)
 			
-			root.moves += 1
+			add_move()
 			add_to_container(overlap.get_child(0))
 			if parent_container is AnswerContainer:
 				parent_container.recreate_expression()

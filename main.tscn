@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dfxrgpbx000de"]
+[gd_scene load_steps=16 format=3 uid="uid://dfxrgpbx000de"]
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dus01hhunb1nf" path="res://expression.gd" id="2_7mycd"]
@@ -11,10 +11,7 @@
 [ext_resource type="Script" uid="uid://c4vtgard6oa1c" path="res://target.gd" id="8_kek77"]
 [ext_resource type="Texture2D" uid="uid://jxvtmrebsnsq" path="res://hard_mode.svg" id="10_4c57u"]
 [ext_resource type="Script" uid="uid://dia6rgk03nafl" path="res://difficulty.gd" id="11_efxa6"]
-[ext_resource type="StyleBox" uid="uid://bamx3y5f64a0p" path="res://unpressed_button.tres" id="12_2cqfq"]
 [ext_resource type="Texture2D" uid="uid://c77mg5ec72pdb" path="res://help_button.svg" id="12_dg77c"]
-[ext_resource type="Script" uid="uid://bwl2bntgmtya4" path="res://number_count_select.gd" id="12_vivmo"]
-[ext_resource type="StyleBox" uid="uid://chxmpcw05ayiv" path="res://pressed_button.tres" id="12_yaehf"]
 [ext_resource type="Script" uid="uid://21v6vcrj2xa2" path="res://help.gd" id="13_ycdy4"]
 [ext_resource type="PackedScene" uid="uid://ca7v6j8yska1v" path="res://help_menu.tscn" id="14_w48qg"]
 
@@ -163,7 +160,7 @@ container_type = 1
 
 [node name="Operations" type="PanelContainer" parent="."]
 process_mode = 1
-custom_minimum_size = Vector2(660, 110)
+custom_minimum_size = Vector2(110, 110)
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -181,7 +178,7 @@ theme_override_styles/panel = ExtResource("2_kek77")
 
 [node name="Symbols" type="HBoxContainer" parent="Operations"]
 modulate = Color(2, 2, 2, 1)
-custom_minimum_size = Vector2(600, 100)
+custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -234,38 +231,9 @@ mouse_filter = 2
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 button_pressed = true
-text = "Hard Mode"
+text = "Bug Discovered"
 icon = ExtResource("10_4c57u")
 script = ExtResource("11_efxa6")
-
-[node name="CountSelection" type="PanelContainer" parent="VBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = ExtResource("2_kek77")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/CountSelection"]
-layout_mode = 2
-
-[node name="Small" type="Button" parent="VBoxContainer/CountSelection/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "4 numbers to create the target."
-theme_override_styles/disabled = ExtResource("12_yaehf")
-theme_override_styles/pressed = ExtResource("12_yaehf")
-theme_override_styles/normal = ExtResource("12_2cqfq")
-text = "Small"
-script = ExtResource("12_vivmo")
-
-[node name="Large" type="Button" parent="VBoxContainer/CountSelection/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "5 numbers to create the target."
-theme_override_styles/disabled = ExtResource("12_yaehf")
-theme_override_styles/pressed = ExtResource("12_yaehf")
-theme_override_styles/normal = ExtResource("12_2cqfq")
-text = "Large
-"
-script = ExtResource("12_vivmo")
-number = 5
 
 [node name="Help" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
@@ -282,7 +250,5 @@ offset_right = 272.0
 offset_bottom = 469.0
 
 [connection signal="pressed" from="VBoxContainer/Difficulty" to="VBoxContainer/Difficulty" method="_on_pressed"]
-[connection signal="pressed" from="VBoxContainer/CountSelection/HBoxContainer/Small" to="VBoxContainer/CountSelection/HBoxContainer/Small" method="_on_pressed"]
-[connection signal="pressed" from="VBoxContainer/CountSelection/HBoxContainer/Large" to="VBoxContainer/CountSelection/HBoxContainer/Large" method="_on_pressed"]
 [connection signal="mouse_entered" from="VBoxContainer/Help" to="VBoxContainer/Help" method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="VBoxContainer/Help/HelpMenu" to="VBoxContainer/Help" method="_on_mouse_exited"]
