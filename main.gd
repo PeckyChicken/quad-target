@@ -170,13 +170,6 @@ func create_target_tile():
 	target_tile.expression = "Target"
 	$Target/Symbols.add_child(target_tile)
 
-#func evaluate_expression(expression):
-	#var exp := ExpressionContainer.new()
-	#var parse_check = exp.validate_expression(exp.godotify_expression(expression))
-	#if parse_check[0]:
-		#var output = exp.calcuate_answer()
-		#return output
-
 func create_number_tiles(numbers: Array):
 	for number in numbers:
 		var new_tile: NumberTile = NUMBER_TILE_SCENE.instantiate()

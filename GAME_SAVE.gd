@@ -20,8 +20,6 @@ func load_cache():
 			for key in keys:
 				data[key] = cache.get_value("last_play",key,ERR_DOES_NOT_EXIST)
 	
-	cache.clear()
-	cache.save("user://cache.cfg")
 	cache_loaded = true
 	return data
 
