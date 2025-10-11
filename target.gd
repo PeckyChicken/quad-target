@@ -15,7 +15,7 @@ var OPS = ["+","-","*","/"]
 func _ready() -> void:
 	await get_tree().process_frame
 		
-	if root.difficulty == 0:
+	if root.difficulty == Root.Difficulty.easy:
 		OPS = ["+","-"]
 	
 	
@@ -145,7 +145,7 @@ func create_target(numbers: Array[int],puzzle_seed:int) -> int:
 	var start = true
 	
 	seed(puzzle_seed)
-	while start or target in numbers or target_range.x > target or target_range.y < target or check_one_operation(numbers,target) or (root.difficulty == 1 and is_possible(numbers,["+","-"],target)):
+	while start or target in numbers or target_range.x > target or target_range.y < target or check_one_operation(numbers,target) or (root.difficulty != Root.Difficulty.easy and is_possible(numbers,["+","-"],target)):
 		if attempts >= 50:
 			return -1
 		attempts += 1
@@ -168,7 +168,7 @@ func create_target(numbers: Array[int],puzzle_seed:int) -> int:
 			
 			var operation: String
 			
-			if root.difficulty == 1 and index == len(numbers)-1 and "*" not in used_operations:
+			if root.difficulty != Root.Difficulty.easy and index == len(numbers)-1 and "*" not in used_operations:
 				operation = "*"
 			else:
 				operation = OPS.pick_random()

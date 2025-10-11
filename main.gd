@@ -16,7 +16,7 @@ var target_tile: NumberTile
 enum Difficulty {
 	easy,
 	hard,
-	hidden
+	quint_target
 }
 var difficulty := Difficulty.hard
 
@@ -59,6 +59,8 @@ var win_screen_shown := false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	reload_cache(Save.load_cache())
+	if difficulty == Difficulty.quint_target:
+		number_count = 5
 	save_name = "%s_mode_save" % [Difficulty.keys()[difficulty]]
 	print(save_name)
 	save_data = Save.load_save(save_name)
@@ -83,7 +85,8 @@ func _notification(what):
 	if what in [NOTIFICATION_WM_CLOSE_REQUEST,NOTIFICATION_APPLICATION_PAUSED,NOTIFICATION_APPLICATION_FOCUS_OUT]:
 		print("Saving cache....")
 		Save.save_cache(difficulty,win_screen_shown)
-		get_tree().quit()
+		if what == NOTIFICATION_WM_CLOSE_REQUEST:
+			get_tree().quit()
 
 func reload_save(data:Dictionary):
 	puzzle_seed = data["date"]
@@ -92,11 +95,11 @@ func reload_save(data:Dictionary):
 	timer = stats["time"]
 	date = Time.get_datetime_dict_from_unix_time(data["date"])
 	target = data["target"]
-	number_count = 5 if difficulty == Difficulty.hidden else 4
+	
+	number_count = 5 if difficulty == Difficulty.quint_target else 4
 	starting_numbers = data["numbers"]
 
 func reload_cache(cache):
-	print(cache)
 	if "difficulty" in cache:
 		difficulty = cache.get("difficulty") as Difficulty
 	if "win_screen_shown" in cache and cache["win_screen_shown"]:
@@ -108,7 +111,7 @@ func create_solution(history) -> String:
 		if component is Array:
 			solution += " (%s)" % [create_solution(component)]
 			continue
-		solution += " " + component
+		solution += " " + str(component)
 	
 	return solution.strip_edges().replace("( ","(").replace(" )",")")
 
@@ -133,7 +136,11 @@ func check_win(tile:Tile):
 		get_tree().paused = true
 
 func set_date():
-	$Date.text = "Quad Target\n%s, %d %s %d" % [
+	if difficulty == Difficulty.quint_target:
+		$Date.text = "Quint Target"
+	else:
+		$Date.text = "Quad Target"
+	$Date.text += "\n%s, %d %s %d" % [
 		WEEKDAYS[date.weekday],
 		date.day,
 		MONTHS[date.month - 1],
@@ -169,8 +176,8 @@ func create_number_tiles(numbers: Array):
 			var expression: String = temp_exp.godotify_expression(" ".join(answer_container.compress_history_component(number)))
 			parser.parse(expression)
 			new_tile.number = parser.execute()
-			new_tile.history = answer_container.compress_history_component(number)
-			new_tile.expression = " ".join(new_tile.history)
+			new_tile.history = number
+			new_tile.expression = " ".join(answer_container.compress_history_component(new_tile.history))
 			#new_tile.extra_data["expression"] = $Equation/Expression/Symbols
 			
 		new_tile.draggable = true
