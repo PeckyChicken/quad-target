@@ -16,6 +16,8 @@ const MONTHS := ["January","February","March","April","May","June","July","Augus
 
 const SWITCHES: Dictionary[Root.Difficulty,Root.Difficulty] = {Root.Difficulty.easy:Root.Difficulty.hard,Root.Difficulty.hard:Root.Difficulty.quint_target,Root.Difficulty.quint_target:Root.Difficulty.quint_target}
 
+var text_fade_tween: Tween
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Fade.modulate.a = 0
@@ -99,15 +101,17 @@ func share():
 	else:
 		mode = "\n" + Root.Difficulty.keys()[root.difficulty].capitalize() + " Mode"
 	
-	var formatted_time = format_time(time)
+	var formatted_time = format_time(int(time))
 	
 	DisplayServer.clipboard_set(SOLUTION_TEMPLATE.format({"name":formatted_name,"date":formatted_date,"mode":mode,"time":formatted_time,"solution":formatted_censored_solution}))
 	
-	var tween = create_tween()
-	tween.tween_property($Stats/Share/copied,"modulate:a",1,0.1)
-	await tween.finished
-	tween = create_tween()
-	tween.tween_property($Stats/Share/copied,"modulate:a",0,2)
+	if text_fade_tween and text_fade_tween.is_running():
+		text_fade_tween.kill()
+	text_fade_tween = create_tween()
+	text_fade_tween.tween_property($Stats/Share/copied,"modulate:a",1,0.1)
+	await text_fade_tween.finished
+	text_fade_tween = create_tween()
+	text_fade_tween.tween_property($Stats/Share/copied,"modulate:a",0,2)
 	
 
 func _on_switch_pressed() -> void:
