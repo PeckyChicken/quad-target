@@ -12,7 +12,7 @@ var solution: String
 
 var image_load_string: String = "[img width=25]"
 
-const SWITCHES: Dictionary[Root.Difficulty,Root.Difficulty] = {Root.Difficulty.easy:Root.Difficulty.hard,Root.Difficulty.hard:Root.Difficulty.quint_target}
+const SWITCHES: Dictionary[Root.Difficulty,Root.Difficulty] = {Root.Difficulty.easy:Root.Difficulty.hard,Root.Difficulty.hard:Root.Difficulty.quint_target,Root.Difficulty.quint_target:Root.Difficulty.quint_target}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,6 +28,10 @@ func _ready() -> void:
 	$Stats/VBoxContainer/Mode.text = "%s%s_mode.svg[/img] %s Mode" % [image_load_string,mode,mode.capitalize()]
 	$Stats/VBoxContainer/Switch.text = "Play %s?" % [switch_mode.capitalize()]
 	$Stats/VBoxContainer/Switch.icon = load("res://%s_mode.svg" % switch_mode)
+	
+	if root.difficulty == Root.Difficulty.quint_target:
+		$Stats/VBoxContainer/Switch.hide()
+		$Stats/VBoxContainer/Congratulations.text = "Quint Target solved!"
 	
 	fade_on()
 
