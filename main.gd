@@ -41,6 +41,7 @@ var timer: float = 0.0
 var moves: int = 0
 
 var mobile: bool = false
+var web: bool = false
 var tile_scale = Vector2.ONE
 
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
@@ -60,7 +61,8 @@ var win_screen_shown := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	reload_cache(Save.load_cache())
+	if not Save.cache_loaded:
+		reload_cache(Save.load_cache())
 	if difficulty == Difficulty.quint_target:
 		number_count = 5
 	save_name = "%s_mode_save" % [Difficulty.keys()[difficulty]]
@@ -82,12 +84,18 @@ func _ready() -> void:
 	set_date()
 	Events.TileCreated.connect(check_win)
 	Events.MakeNumberList.connect(func():total_numbers=[])
+	
+	Events.SaveCache.connect(save_cache)
+
+func save_cache():
+	if save_active:
+		print("Saving cache....")
+		Save.save_cache(difficulty,win_screen_shown)
+
 
 func _notification(what):
 	if what in [NOTIFICATION_WM_CLOSE_REQUEST,NOTIFICATION_APPLICATION_PAUSED,NOTIFICATION_APPLICATION_FOCUS_OUT]:
-		if save_active:
-			print("Saving cache....")
-			Save.save_cache(difficulty,win_screen_shown)
+		save_cache()
 		if what == NOTIFICATION_WM_CLOSE_REQUEST:
 			get_tree().quit()
 

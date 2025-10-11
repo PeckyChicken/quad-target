@@ -11,8 +11,10 @@ func _ready() -> void:
 		load_scene(MAIN_SCENE)
 
 func load_scene(scene: PackedScene):
-	var new_scene = scene.instantiate()
+	var new_scene: Root = scene.instantiate()
+	new_scene.web = OS.has_feature("web")
 	get_tree().root.add_child.call_deferred(new_scene)
+	
 	queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

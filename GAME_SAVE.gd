@@ -1,5 +1,7 @@
 extends Node
 
+var cache_loaded: bool = false
+
 func save_cache(difficulty,win_screen_shown):
 	var cache := ConfigFile.new()
 	cache.set_value("last_play","difficulty",difficulty)
@@ -20,7 +22,7 @@ func load_cache():
 	
 	cache.clear()
 	cache.save("user://cache.cfg")
-	
+	cache_loaded = true
 	return data
 
 func _get_save_date() -> int:
@@ -75,3 +77,7 @@ func load_save(file_name:String) -> Dictionary:
 		data["success"] = false
 	
 	return data
+
+func _process(_delta: float) -> void:
+	if OS.has_feature("web"):
+		Events.SaveCache.emit()
