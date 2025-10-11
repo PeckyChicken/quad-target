@@ -34,6 +34,7 @@ func date_selected(date,__):
 	new_scene.date_override = true
 	get_tree().root.add_child(new_scene)
 	new_scene.set_date()
+	new_scene.save_active = false
 	get_tree().paused = false
 	get_parent().queue_free()
 

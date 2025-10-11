@@ -51,6 +51,8 @@ var __ := 0
 
 var save_data: Dictionary
 
+var save_active := true
+
 var win_screen_shown := false
 
 @onready var answer_container = $Equation/Answer/Symbols
@@ -83,8 +85,9 @@ func _ready() -> void:
 
 func _notification(what):
 	if what in [NOTIFICATION_WM_CLOSE_REQUEST,NOTIFICATION_APPLICATION_PAUSED,NOTIFICATION_APPLICATION_FOCUS_OUT]:
-		print("Saving cache....")
-		Save.save_cache(difficulty,win_screen_shown)
+		if save_active:
+			print("Saving cache....")
+			Save.save_cache(difficulty,win_screen_shown)
 		if what == NOTIFICATION_WM_CLOSE_REQUEST:
 			get_tree().quit()
 
@@ -130,8 +133,9 @@ func check_win(tile:Tile):
 		tile.get_node("Fill").color = Color("#1B3A1B")
 		var solution = create_solution(tile.history) + " = " + str(tile.number)
 		create_win_screen(timer,moves,solution)
-		Save.save(save_name,{"moves":moves,"time":timer,"solution":solution},date,total_numbers,target,difficulty == Difficulty.hard)
-		Save.save_cache(difficulty,true)
+		if save_active:
+			Save.save(save_name,{"moves":moves,"time":timer,"solution":solution},date,total_numbers,target,difficulty == Difficulty.hard)
+			Save.save_cache(difficulty,true)
 		
 		get_tree().paused = true
 
