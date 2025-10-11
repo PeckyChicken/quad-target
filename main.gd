@@ -61,7 +61,9 @@ var win_screen_shown := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if not Save.cache_loaded:
+	if Save.cache_loaded:
+		save_cache()
+	else:
 		reload_cache(Save.load_cache())
 	if difficulty == Difficulty.quint_target:
 		number_count = 5

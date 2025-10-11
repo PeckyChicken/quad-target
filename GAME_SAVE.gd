@@ -77,7 +77,3 @@ func load_save(file_name:String) -> Dictionary:
 		data["success"] = false
 	
 	return data
-
-func _process(_delta: float) -> void:
-	if OS.has_feature("web"):
-		Events.SaveCache.emit()
