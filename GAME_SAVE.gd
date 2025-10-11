@@ -20,8 +20,6 @@ func load_cache():
 			for key in keys:
 				data[key] = cache.get_value("last_play",key,ERR_DOES_NOT_EXIST)
 	
-	cache.clear()
-	cache.save("user://cache.cfg")
 	cache_loaded = true
 	return data
 
@@ -77,7 +75,3 @@ func load_save(file_name:String) -> Dictionary:
 		data["success"] = false
 	
 	return data
-
-func _process(_delta: float) -> void:
-	if OS.has_feature("web"):
-		Events.SaveCache.emit()

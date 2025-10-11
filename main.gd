@@ -61,7 +61,9 @@ var win_screen_shown := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if not Save.cache_loaded:
+	if Save.cache_loaded:
+		save_cache()
+	else:
 		reload_cache(Save.load_cache())
 	if difficulty == Difficulty.quint_target:
 		number_count = 5
@@ -167,13 +169,6 @@ func create_target_tile():
 	target_tile.number = target
 	target_tile.expression = "Target"
 	$Target/Symbols.add_child(target_tile)
-
-#func evaluate_expression(expression):
-	#var exp := ExpressionContainer.new()
-	#var parse_check = exp.validate_expression(exp.godotify_expression(expression))
-	#if parse_check[0]:
-		#var output = exp.calcuate_answer()
-		#return output
 
 func create_number_tiles(numbers: Array):
 	for number in numbers:

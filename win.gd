@@ -15,6 +15,7 @@ var image_load_string: String = "[img width=25]"
 const MONTHS := ["January","February","March","April","May","June","July","August","September","October","November","December"]
 
 const SWITCHES: Dictionary[Root.Difficulty,Root.Difficulty] = {Root.Difficulty.easy:Root.Difficulty.hard,Root.Difficulty.hard:Root.Difficulty.quint_target,Root.Difficulty.quint_target:Root.Difficulty.quint_target}
+const DIFFICULTY_EMOJIS = {Root.Difficulty.easy:"😌 ",Root.Difficulty.hard:"😖 ",Root.Difficulty.quint_target:"💀 "}
 
 var text_fade_tween: Tween
 
@@ -66,9 +67,10 @@ func _process(_delta: float) -> void:
 	pass
 
 func share():
-	const SOLUTION_TEMPLATE = '''🔢 {name} Target {date}{mode}
-{solution}
-⏱ {time}'''
+	const SOLUTION_TEMPLATE = '''🔢 {name} Target {date}
+{mode}
+🧩 {solution}
+⏰ {time}'''
 	var number_replacement := "a"
 	const operation_replacement = "#"
 	var formatted_solution := ""
@@ -96,10 +98,8 @@ func share():
 	var formatted_name = "Quint" if root.difficulty == Root.Difficulty.quint_target else "Quad"
 	
 	var mode: String
-	if root.difficulty == Root.Difficulty.quint_target:
-		mode = ""
-	else:
-		mode = "\n" + Root.Difficulty.keys()[root.difficulty].capitalize() + " Mode"
+
+	mode = DIFFICULTY_EMOJIS[root.difficulty] + Root.Difficulty.keys()[root.difficulty].capitalize() + " Mode"
 	
 	var formatted_time = format_time(int(time))
 	
