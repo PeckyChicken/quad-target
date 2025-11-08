@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Quad Target"
 run/main_scene="uid://lf8utl83pn37"
-config/features=PackedStringArray("4.4", "GL Compatibility")
+config/features=PackedStringArray("4.5", "GL Compatibility")
 boot_splash/bg_color=Color(0.0705882, 0.0705882, 0.0705882, 1)
 boot_splash/image="uid://4auj48f88iy5"
 config/icon="res://logo_small.png"
@@ -38,7 +38,7 @@ movie_writer/movie_file="C:/Users/Benjy/OneDrive/Documents/Workspaces/Web projec
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/calendar_button/plugin.cfg")
+enabled=PackedStringArray("res://addons/SharePlugin/plugin.cfg", "res://addons/calendar_button/plugin.cfg")
 
 [input]
 

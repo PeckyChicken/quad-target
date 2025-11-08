@@ -8,6 +8,8 @@ func _ready() -> void:
 	image_load_string = "[img width=50]"
 	super()
 
+#func share_text(text,_name,_solution):
+	#$Share.share_text(_name,_solution,text)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
