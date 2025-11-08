@@ -79,7 +79,7 @@ func share():
 	for character in formatted_solution.split(" "):
 		if character.is_valid_int():
 			censored_solution.append(number_replacement)
-			number_replacement = char(number_replacement.unicode_at(0)+1)
+			number_replacement = char(ord(number_replacement)+1)
 			continue
 		if character in ["+","-","×","÷"]:
 			censored_solution.append(operation_replacement)
@@ -103,8 +103,11 @@ func share():
 	
 	var formatted_time = format_time(int(time))
 	
-	DisplayServer.clipboard_set(SOLUTION_TEMPLATE.format({"name":formatted_name,"date":formatted_date,"mode":mode,"time":formatted_time,"solution":formatted_censored_solution}))
-	
+	var shared_text := SOLUTION_TEMPLATE.format({"name":formatted_name,"date":formatted_date,"mode":mode,"time":formatted_time,"solution":formatted_censored_solution})
+	share_text(shared_text,formatted_name,formatted_censored_solution)
+
+func share_text(text,_name,_solution):
+	DisplayServer.clipboard_set(text)
 	if text_fade_tween and text_fade_tween.is_running():
 		text_fade_tween.kill()
 	text_fade_tween = create_tween()
@@ -112,7 +115,6 @@ func share():
 	await text_fade_tween.finished
 	text_fade_tween = create_tween()
 	text_fade_tween.tween_property($Stats/Share/copied,"modulate:a",0,2)
-	
 
 func _on_switch_pressed() -> void:
 	var new_scene: Root
