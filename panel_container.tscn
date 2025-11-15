@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bi74vyh7c3tqk"]
 
-[ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://pop-up.tres" id="1_qnmd2"]
+[ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://Styleboxes/pop-up.tres" id="1_qnmd2"]
 [ext_resource type="Script" uid="uid://bty3rid1xj8yd" path="res://addons/calendar_button/assets/calendar_button.gd" id="2_x66kw"]
 [ext_resource type="Script" uid="uid://n0dqt8kth4vt" path="res://panel_container.gd" id="2_yg2wv"]
 

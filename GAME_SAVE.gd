@@ -2,10 +2,10 @@ extends Node
 
 var cache_loaded: bool = false
 
-func save_cache(difficulty,win_screen_shown):
+func save_cache(difficulty,won_games: Array):
 	var cache := ConfigFile.new()
 	cache.set_value("last_play","difficulty",difficulty)
-	cache.set_value("last_play","win_screen_shown",win_screen_shown)
+	cache.set_value("last_play","wins",won_games)
 	
 	cache.set_value("metadata","date",_get_save_date())
 	cache.save("user://cache.cfg")

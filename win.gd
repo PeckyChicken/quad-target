@@ -122,7 +122,7 @@ func _on_switch_pressed() -> void:
 	
 	new_scene.difficulty = SWITCHES[root.difficulty]
 	if root.save_active:
-		Save.save_cache(new_scene.difficulty,false)
+		Save.save_cache(new_scene.difficulty,root.wins)
 	new_scene.date = root.date
 	new_scene.date_override = root.date_override
 	get_tree().root.add_child(new_scene)

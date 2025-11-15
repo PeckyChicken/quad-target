@@ -32,8 +32,12 @@ func _find_all_sounds(directory) -> Array[String]:
 	
 	return sounds
 
-func play_sound(sound:String,location:Vector2):
-	var player = AudioStreamPlayer2D.new()
+func play_sound(sound:String,location:Vector2=Vector2.INF):
+	var player
+	if location == Vector2.INF:
+		player = AudioStreamPlayer.new()
+	else:
+		player = AudioStreamPlayer2D.new()
 	add_child(player)
 	
 	player.stream = load_sound(sound)

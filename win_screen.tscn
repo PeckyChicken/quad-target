@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b8vv2erkk11hq"]
 
 [ext_resource type="Script" uid="uid://dyb114aybsgpj" path="res://win.gd" id="1_l2arl"]
-[ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://pop-up.tres" id="2_wmwda"]
+[ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://Styleboxes/pop-up.tres" id="2_wmwda"]
 [ext_resource type="Texture2D" uid="uid://jxvtmrebsnsq" path="res://hard_mode.svg" id="3_l5t5q"]
 [ext_resource type="Texture2D" uid="uid://d15f46uyg3b8s" path="res://share.svg" id="4_1txte"]
 

@@ -1,21 +1,18 @@
-[gd_scene load_steps=20 format=3 uid="uid://dfxrgpbx000de"]
+[gd_scene load_steps=16 format=3 uid="uid://dfxrgpbx000de"]
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dus01hhunb1nf" path="res://expression.gd" id="2_7mycd"]
-[ext_resource type="StyleBox" uid="uid://b4ft1tecblwx8" path="res://container.tres" id="2_kek77"]
+[ext_resource type="StyleBox" uid="uid://b4ft1tecblwx8" path="res://Styleboxes/container.tres" id="2_kek77"]
 [ext_resource type="Script" uid="uid://clsanyekn3n2p" path="res://answer.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://d1fhsc7ylw252" path="res://container.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dq3nhvmg72xlh" path="res://operation_tile.tscn" id="5_7mycd"]
 [ext_resource type="Script" uid="uid://yryvw1ybqpb5" path="res://storage.gd" id="6_w48qg"]
 [ext_resource type="Script" uid="uid://n5i5lbtymgc2" path="res://operation_container.gd" id="7_272bh"]
 [ext_resource type="Script" uid="uid://c4vtgard6oa1c" path="res://target.gd" id="8_kek77"]
-[ext_resource type="Script" uid="uid://b14gxifjddgls" path="res://menu.gd" id="10_2cqfq"]
+[ext_resource type="PackedScene" uid="uid://bp03b0p71mk1b" path="res://menu.tscn" id="10_ycdy4"]
 [ext_resource type="Texture2D" uid="uid://ccyuvgwoa5atp" path="res://menu.svg" id="11_dg77c"]
-[ext_resource type="Texture2D" uid="uid://c77mg5ec72pdb" path="res://help_button.svg" id="12_dg77c"]
 [ext_resource type="Texture2D" uid="uid://dt5cp1as8m8va" path="res://close.svg" id="12_ycdy4"]
 [ext_resource type="Script" uid="uid://0tu2puoyu6o1" path="res://menu_button.gd" id="13_vivmo"]
-[ext_resource type="Script" uid="uid://21v6vcrj2xa2" path="res://help.gd" id="13_ycdy4"]
-[ext_resource type="PackedScene" uid="uid://ca7v6j8yska1v" path="res://help_menu.tscn" id="14_w48qg"]
 
 [sub_resource type="Theme" id="Theme_ig7tw"]
 background/colors/color = Color(0.0705882, 0.0705882, 0.0705882, 1)
@@ -70,21 +67,6 @@ func _process(_delta: float) -> void:
 	#root.queue_free()
 	#Events.PlaySound.emit(\"pick_up_number\",root.size/2)
 "
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vivmo"]
-content_margin_left = 5.0
-content_margin_top = 5.0
-content_margin_right = 5.0
-content_margin_bottom = 5.0
-bg_color = Color(1, 1, 1, 0.2509804)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(1, 1, 1, 0.5019608)
-corner_radius_top_right = 2
-corner_radius_bottom_right = 2
-corner_radius_bottom_left = 2
 
 [node name="Control" type="Control"]
 process_mode = 3
@@ -313,33 +295,11 @@ max_size = 1
 allowed_tiles = Array[int]([0, 1, 2])
 container_type = 2
 
-[node name="Menu" type="PanelContainer" parent="."]
+[node name="Menu" parent="." instance=ExtResource("10_ycdy4")]
 layout_mode = 1
 anchors_preset = -1
-grow_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_vivmo")
-script = ExtResource("10_2cqfq")
-
-[node name="VBox" type="VBoxContainer" parent="Menu"]
-layout_mode = 2
-
-[node name="Difficulties" type="VBoxContainer" parent="Menu/VBox"]
-layout_mode = 2
-
-[node name="Help" type="TextureRect" parent="Menu/VBox"]
-layout_mode = 2
-size_flags_horizontal = 4
-texture = ExtResource("12_dg77c")
-stretch_mode = 3
-script = ExtResource("13_ycdy4")
-
-[node name="HelpMenu" parent="Menu/VBox/Help" instance=ExtResource("14_w48qg")]
-modulate = Color(1, 1, 1, 0)
-layout_mode = 0
-offset_left = -46.0
-offset_top = 0.0
-offset_right = 280.0
-offset_bottom = 470.0
+offset_right = 34.0
+offset_bottom = 38.0
 
 [node name="MenuListButton" type="TextureButton" parent="."]
 layout_mode = 1
@@ -367,6 +327,4 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_dg77c")
 
-[connection signal="mouse_entered" from="Menu/VBox/Help" to="Menu/VBox/Help" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Menu/VBox/Help" to="Menu/VBox/Help" method="_on_mouse_exited"]
 [connection signal="pressed" from="MenuListButton" to="MenuListButton" method="_on_pressed"]

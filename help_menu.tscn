@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ca7v6j8yska1v"]
 
-[ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://pop-up.tres" id="1_f4yst"]
+[ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://Styleboxes/pop-up.tres" id="1_f4yst"]
 
 [node name="HelpMenu" type="PanelContainer"]
 offset_top = 5.0

@@ -54,7 +54,7 @@ var save_data: Dictionary
 
 var save_active := true
 
-var win_screen_shown := false
+var wins: Array[Difficulty] = []
 
 @onready var answer_container = $Equation/Answer/Symbols
 
@@ -72,7 +72,7 @@ func _ready() -> void:
 	save_data = Save.load_save(save_name)
 	if save_data["success"]:
 		reload_save(save_data)
-		if win_screen_shown:
+		if difficulty in wins:
 			Events.PlaySound.emit("win",get_viewport().get_visible_rect().size/2)
 			create_win_screen(timer,moves,save_data["stats"]["solution"])
 	else:
@@ -92,13 +92,13 @@ func _ready() -> void:
 func save_cache():
 	if save_active:
 		print("Saving cache....")
-		Save.save_cache(difficulty,win_screen_shown)
+		Save.save_cache(difficulty,wins)
 
 
 func _notification(what):
 	if what in [NOTIFICATION_WM_CLOSE_REQUEST,NOTIFICATION_APPLICATION_PAUSED,NOTIFICATION_APPLICATION_FOCUS_OUT]:
 		save_cache()
-		if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		if what == NOTIFICATION_WM_CLOSE_REQUEST and ((not OS.has_feature("mobile")) or OS.has_feature("web")):
 			get_tree().quit()
 
 func reload_save(data:Dictionary):
@@ -111,12 +111,13 @@ func reload_save(data:Dictionary):
 	
 	number_count = 5 if difficulty == Difficulty.quint_target else 4
 	starting_numbers = data["numbers"]
+	starting_numbers.sort()
 
 func reload_cache(cache):
 	if "difficulty" in cache:
 		difficulty = cache.get("difficulty") as Difficulty
-	if "win_screen_shown" in cache and cache["win_screen_shown"]:
-		win_screen_shown = true
+	if "wins" in cache and cache["wins"]:
+		wins = cache["wins"]
 
 func create_solution(history) -> String:
 	var solution: String = ""
@@ -134,7 +135,8 @@ func create_win_screen(time,move_count,solution):
 	win_screen.moves = move_count
 	win_screen.solution = solution
 	add_child(win_screen)
-	win_screen_shown = true
+	if difficulty not in wins:
+		wins.append(difficulty)
 
 func check_win(tile:Tile):
 	if tile is NumberTile and tile is not TargetTile and tile.number == target:
@@ -145,7 +147,7 @@ func check_win(tile:Tile):
 		create_win_screen(timer,moves,solution)
 		if save_active:
 			Save.save(save_name,{"moves":moves,"time":timer,"solution":solution},date,total_numbers,target,difficulty == Difficulty.hard)
-			Save.save_cache(difficulty,true)
+			Save.save_cache(difficulty,wins)
 		
 		get_tree().paused = true
 
