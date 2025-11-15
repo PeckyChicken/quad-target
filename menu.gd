@@ -13,8 +13,14 @@ var styles: Dictionary[String,StyleBox] = {
 	"orange_pressed":load("res://Styleboxes/orange_pressed_button.tres"),
 	"orange_hover":load("res://Styleboxes/orange_hover_button.tres")}
 
+const DIFFICULTY_TOOLTIPS: Dictionary[Root.Difficulty,String] = {
+	Root.Difficulty.easy: "Problems in easy mode only require addition and subtraction.",
+	Root.Difficulty.hard: "Problems in hard mode always require a multiplication.",
+	Root.Difficulty.quint_target: "Quint targets require 5 numbers and a multiplication."}
+
 func _ready() -> void:
 	await get_tree().process_frame
+	
 	create_difficulty_buttons()
 	position.x = -size.x
 
@@ -25,6 +31,8 @@ func change_difficulty(new_difficulty):
 	
 	if root.save_active:
 		Save.save_cache(new_scene.difficulty,root.wins)
+	
+	new_scene.wins = root.wins
 	new_scene.date = root.date
 	new_scene.date_override = root.date_override
 	get_tree().root.add_child(new_scene)
@@ -38,18 +46,28 @@ func create_difficulty_buttons():
 		child.queue_free()
 	var difficulties: Array[String]
 	difficulties.append_array(root.Difficulty.keys())
-	for difficulty in difficulties:
+	for difficulty in root.Difficulty.values():
+		if difficulty == root.Difficulty.quint_target and root.Difficulty.hard not in root.wins:
+			continue
+		
+		var title: String = root.Difficulty.keys()[difficulty]
 		var new_button := Button.new()
-		new_button.text = difficulty.capitalize() + " Mode"
-		if root.Difficulty[difficulty] in root.wins:
+		new_button.text = title.capitalize() + ("" if difficulty == root.Difficulty.quint_target else " Mode")
+		
+		
+		if difficulty in root.wins:
+			
 			new_button.add_theme_stylebox_override("normal",styles["green_unpressed"])
 			new_button.add_theme_stylebox_override("pressed",styles["green_pressed"])
 			new_button.add_theme_stylebox_override("hover",styles["green_hover"])
-		if root.Difficulty[difficulty] == root.difficulty:
+		
+		if difficulty == root.difficulty:
 			new_button.add_theme_stylebox_override("normal",styles["orange_unpressed"])
 			new_button.add_theme_stylebox_override("pressed",styles["orange_pressed"])
 			new_button.add_theme_stylebox_override("hover",styles["orange_hover"])
 		
-		new_button.pressed.connect(func(d=difficulty):change_difficulty(root.Difficulty[d]))
+		new_button.tooltip_text = DIFFICULTY_TOOLTIPS[difficulty]
+		
+		new_button.pressed.connect(func(d=difficulty):change_difficulty(d))
 			
 		$VBox/Difficulties.add_child(new_button)

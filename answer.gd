@@ -18,7 +18,6 @@ func compress_history_component(component) -> Array:
 			continue
 		
 		item = compress_history_component(item)
-		print(item)
 		var parser := Expression.new()
 		var expression: String = ExpressionContainer.new().godotify_expression(" ".join(item))
 		var parser_out = parser.parse(expression)

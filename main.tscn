@@ -10,8 +10,8 @@
 [ext_resource type="Script" uid="uid://n5i5lbtymgc2" path="res://operation_container.gd" id="7_272bh"]
 [ext_resource type="Script" uid="uid://c4vtgard6oa1c" path="res://target.gd" id="8_kek77"]
 [ext_resource type="PackedScene" uid="uid://bp03b0p71mk1b" path="res://menu.tscn" id="10_ycdy4"]
-[ext_resource type="Texture2D" uid="uid://ccyuvgwoa5atp" path="res://menu.svg" id="11_dg77c"]
-[ext_resource type="Texture2D" uid="uid://dt5cp1as8m8va" path="res://close.svg" id="12_ycdy4"]
+[ext_resource type="Texture2D" uid="uid://ccyuvgwoa5atp" path="res://Icons/menu.svg" id="11_dg77c"]
+[ext_resource type="Texture2D" uid="uid://dt5cp1as8m8va" path="res://Icons/close.svg" id="12_ycdy4"]
 [ext_resource type="Script" uid="uid://0tu2puoyu6o1" path="res://menu_button.gd" id="13_vivmo"]
 
 [sub_resource type="Theme" id="Theme_ig7tw"]
@@ -25,9 +25,9 @@ script/source = "extends RichTextLabel
 @onready var root = $\"../..\"
 
 @onready var icons: Dictionary[Root.Difficulty,String] = {
-	Root.Difficulty.easy : \"res://easy_mode.svg\",
-	Root.Difficulty.hard : \"res://hard_mode.svg\",
-	Root.Difficulty.quint_target : \"res://quint_target_mode.svg\"
+	Root.Difficulty.easy : \"res://Icons/easy_mode.svg\",
+	Root.Difficulty.hard : \"res://Icons/hard_mode.svg\",
+	Root.Difficulty.quint_target : \"res://Icons/quint_target_mode.svg\"
 }
 
 const TOOLTIPS = {
@@ -120,7 +120,7 @@ vertical_alignment = 2
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true
-text = "[img]res://easy_mode.svg[/img] Bug Discovered"
+text = "[img]res://Icons/easy_mode.svg[/img] Bug Discovered"
 fit_content = true
 scroll_active = false
 autowrap_mode = 0

@@ -32,13 +32,13 @@ func _get_save_date() -> int:
 	return Time.get_unix_time_from_datetime_dict(save_date)
 
 func save(file_name:String,stats:Dictionary,date:Dictionary,
-			numbers:Array,target:int,hard_mode_beaten:bool):
+			numbers:Array,target:int,mode_beaten:bool):
 	var save_file := ConfigFile.new()
 	save_file.set_value("user_data","stats",stats)
 	save_file.set_value("user_data","date",Time.get_unix_time_from_datetime_dict(date))
 	save_file.set_value("user_data","target",target)
 	save_file.set_value("user_data","numbers",numbers)
-	save_file.set_value("user_data","hard_mode_beaten",hard_mode_beaten)
+	save_file.set_value("user_data","mode_beaten",mode_beaten)
 	
 	save_file.set_value("metadata","date",_get_save_date())
 	

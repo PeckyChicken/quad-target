@@ -147,7 +147,7 @@ func add_move():
 	Events.MakeNumberList.emit()
 	await get_tree().process_frame
 	if root.save_active:
-		Save.save(root.save_name,{"moves":root.moves,"time":root.timer},root.date,root.total_numbers,root.target,false)
+		Save.save(root.save_name,{"moves":root.moves,"time":root.timer},root.date,root.total_numbers,root.target,root.difficulty in root.wins)
 	
 
 func end_drag():

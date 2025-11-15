@@ -4,8 +4,8 @@ extends TextureButton
 var open: bool = false
 
 @onready var menu: Menu = $"../Menu"
-@onready var close_img: Texture2D = load("res://close.svg")
-@onready var menu_img: Texture2D = load("res://menu.svg")
+@onready var close_img: Texture2D = load("res://Icons/close.svg")
+@onready var menu_img: Texture2D = load("res://Icons/menu.svg")
 
 const ANIMATION_SECONDS = 0.5
 var tween: Tween

@@ -68,11 +68,10 @@ func _ready() -> void:
 	if difficulty == Difficulty.quint_target:
 		number_count = 5
 	save_name = "%s_mode_save" % [Difficulty.keys()[difficulty]]
-	print(save_name)
 	save_data = Save.load_save(save_name)
 	if save_data["success"]:
 		reload_save(save_data)
-		if difficulty in wins:
+		if save_data.get("mode_beaten"):
 			Events.PlaySound.emit("win",get_viewport().get_visible_rect().size/2)
 			create_win_screen(timer,moves,save_data["stats"]["solution"])
 	else:
@@ -91,7 +90,6 @@ func _ready() -> void:
 
 func save_cache():
 	if save_active:
-		print("Saving cache....")
 		Save.save_cache(difficulty,wins)
 
 
@@ -130,13 +128,13 @@ func create_solution(history) -> String:
 	return solution.strip_edges().replace("( ","(").replace(" )",")")
 
 func create_win_screen(time,move_count,solution):
+	if difficulty not in wins:
+		wins.append(difficulty)
 	var win_screen: WinScreen = WIN_SCENE.instantiate()
 	win_screen.time = time
 	win_screen.moves = move_count
 	win_screen.solution = solution
 	add_child(win_screen)
-	if difficulty not in wins:
-		wins.append(difficulty)
 
 func check_win(tile:Tile):
 	if tile is NumberTile and tile is not TargetTile and tile.number == target:
@@ -146,7 +144,7 @@ func check_win(tile:Tile):
 		var solution = create_solution(tile.history) + " = " + str(tile.number)
 		create_win_screen(timer,moves,solution)
 		if save_active:
-			Save.save(save_name,{"moves":moves,"time":timer,"solution":solution},date,total_numbers,target,difficulty == Difficulty.hard)
+			Save.save(save_name,{"moves":moves,"time":timer,"solution":solution},date,total_numbers,target,difficulty in wins)
 			Save.save_cache(difficulty,wins)
 		
 		get_tree().paused = true

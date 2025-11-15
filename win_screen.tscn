@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dyb114aybsgpj" path="res://win.gd" id="1_l2arl"]
 [ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://Styleboxes/pop-up.tres" id="2_wmwda"]
-[ext_resource type="Texture2D" uid="uid://jxvtmrebsnsq" path="res://hard_mode.svg" id="3_l5t5q"]
-[ext_resource type="Texture2D" uid="uid://d15f46uyg3b8s" path="res://share.svg" id="4_1txte"]
+[ext_resource type="Texture2D" uid="uid://jxvtmrebsnsq" path="res://Icons/hard_mode.svg" id="3_l5t5q"]
+[ext_resource type="Texture2D" uid="uid://d15f46uyg3b8s" path="res://Icons/share.svg" id="4_1txte"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmwda"]
 bg_color = Color(0.121569, 0.133333, 0.160784, 1)
@@ -22,6 +22,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_l2arl")
+
+[node name="Fade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.25)
 
 [node name="Stats" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -59,7 +68,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
-text = "[img alt=\"Time\"]hourglass.png[/img] 0:00"
+text = "[img alt=\"Time\"]Icons/hourglass.png[/img] 0:00"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -70,7 +79,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
-text = "[img alt=\"Moves\"]swapping.png[/img] 8"
+text = "[img alt=\"Moves\"]Icons/swapping.png[/img] 8"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -99,7 +108,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
-text = "[img width=25]easy_mode.svg[/img] Easy Mode"
+text = "[img width=25]Icons/easy_mode.svg[/img] Easy Mode"
 fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -128,15 +137,6 @@ offset_bottom = 3.0
 text = "Copied to clipboard"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Fade" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.25)
 
 [connection signal="pressed" from="Stats/VBoxContainer/Switch" to="." method="_on_switch_pressed"]
 [connection signal="pressed" from="Stats/Share" to="." method="share"]

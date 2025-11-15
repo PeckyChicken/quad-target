@@ -25,16 +25,16 @@ func _ready() -> void:
 	$Stats.modulate.a = 0
 	$Stats/Share/copied.modulate.a = 0
 	
-	$Stats/VBoxContainer/HBoxContainer/Time.text = "%shourglass.png[/img] %s" % [image_load_string,format_time(int(time))]
-	$Stats/VBoxContainer/HBoxContainer/Moves.text = "%sswapping.png[/img] %s " % [image_load_string,str(moves)]
+	$Stats/VBoxContainer/HBoxContainer/Time.text = "%sIcons/hourglass.png[/img] %s" % [image_load_string,format_time(int(time))]
+	$Stats/VBoxContainer/HBoxContainer/Moves.text = "%sIcons/swapping.png[/img] %s " % [image_load_string,str(moves)]
 	$Stats/VBoxContainer/Panel/Solution.text = solution
 	
 	var mode: String = Root.Difficulty.keys()[root.difficulty]
 	var switch_mode: String = Root.Difficulty.keys()[SWITCHES[root.difficulty]]
 	
-	$Stats/VBoxContainer/Mode.text = "%s%s_mode.svg[/img] %s Mode" % [image_load_string,mode,mode.capitalize()]
+	$Stats/VBoxContainer/Mode.text = "%sIcons/%s_mode.svg[/img] %s Mode" % [image_load_string,mode,mode.capitalize()]
 	$Stats/VBoxContainer/Switch.text = "Play %s?" % [switch_mode.capitalize()]
-	$Stats/VBoxContainer/Switch.icon = load("res://%s_mode.svg" % switch_mode)
+	$Stats/VBoxContainer/Switch.icon = load("res://Icons/%s_mode.svg" % switch_mode)
 	
 	if root.difficulty == Root.Difficulty.quint_target:
 		$Stats/VBoxContainer/Switch.hide()
@@ -123,6 +123,8 @@ func _on_switch_pressed() -> void:
 	new_scene.difficulty = SWITCHES[root.difficulty]
 	if root.save_active:
 		Save.save_cache(new_scene.difficulty,root.wins)
+	new_scene.wins = root.wins
+
 	new_scene.date = root.date
 	new_scene.date_override = root.date_override
 	get_tree().root.add_child(new_scene)
