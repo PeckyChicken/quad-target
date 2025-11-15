@@ -3,7 +3,7 @@ extends TextureButton
 
 var open: bool = false
 
-@onready var menu: VBoxContainer = $"../Menu"
+@onready var menu: Menu = $"../Menu"
 @onready var close_img: Texture2D = load("res://close.svg")
 @onready var menu_img: Texture2D = load("res://menu.svg")
 

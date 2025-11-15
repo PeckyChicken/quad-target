@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dfxrgpbx000de"]
+[gd_scene load_steps=20 format=3 uid="uid://dfxrgpbx000de"]
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dus01hhunb1nf" path="res://expression.gd" id="2_7mycd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://yryvw1ybqpb5" path="res://storage.gd" id="6_w48qg"]
 [ext_resource type="Script" uid="uid://n5i5lbtymgc2" path="res://operation_container.gd" id="7_272bh"]
 [ext_resource type="Script" uid="uid://c4vtgard6oa1c" path="res://target.gd" id="8_kek77"]
+[ext_resource type="Script" uid="uid://b14gxifjddgls" path="res://menu.gd" id="10_2cqfq"]
 [ext_resource type="Texture2D" uid="uid://ccyuvgwoa5atp" path="res://menu.svg" id="11_dg77c"]
 [ext_resource type="Texture2D" uid="uid://c77mg5ec72pdb" path="res://help_button.svg" id="12_dg77c"]
 [ext_resource type="Texture2D" uid="uid://dt5cp1as8m8va" path="res://close.svg" id="12_ycdy4"]
@@ -69,6 +70,21 @@ func _process(_delta: float) -> void:
 	#root.queue_free()
 	#Events.PlaySound.emit(\"pick_up_number\",root.size/2)
 "
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vivmo"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 0.2509804)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.5019608)
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="Control" type="Control"]
 process_mode = 3
@@ -297,32 +313,27 @@ max_size = 1
 allowed_tiles = Array[int]([0, 1, 2])
 container_type = 2
 
-[node name="Menu" type="VBoxContainer" parent="."]
+[node name="Menu" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_bottom = 1.0
 grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_vivmo")
+script = ExtResource("10_2cqfq")
 
-[node name="OptionButton" type="OptionButton" parent="Menu"]
+[node name="VBox" type="VBoxContainer" parent="Menu"]
 layout_mode = 2
-selected = 0
-item_count = 3
-popup/item_0/text = "Easy mode"
-popup/item_0/id = 0
-popup/item_1/text = "Hard mode"
-popup/item_1/id = 1
-popup/item_2/text = "Quint target"
-popup/item_2/id = 2
-popup/item_2/disabled = true
 
-[node name="Help" type="TextureRect" parent="Menu"]
+[node name="Difficulties" type="VBoxContainer" parent="Menu/VBox"]
+layout_mode = 2
+
+[node name="Help" type="TextureRect" parent="Menu/VBox"]
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("12_dg77c")
 stretch_mode = 3
 script = ExtResource("13_ycdy4")
 
-[node name="HelpMenu" parent="Menu/Help" instance=ExtResource("14_w48qg")]
+[node name="HelpMenu" parent="Menu/VBox/Help" instance=ExtResource("14_w48qg")]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_left = -46.0
@@ -356,6 +367,6 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_dg77c")
 
-[connection signal="mouse_entered" from="Menu/Help" to="Menu/Help" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="Menu/Help" to="Menu/Help" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Menu/VBox/Help" to="Menu/VBox/Help" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Menu/VBox/Help" to="Menu/VBox/Help" method="_on_mouse_exited"]
 [connection signal="pressed" from="MenuListButton" to="MenuListButton" method="_on_pressed"]
