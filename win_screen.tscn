@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b8vv2erkk11hq"]
+[gd_scene load_steps=8 format=3 uid="uid://b8vv2erkk11hq"]
 
 [ext_resource type="Script" uid="uid://dyb114aybsgpj" path="res://win.gd" id="1_l2arl"]
 [ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://Styleboxes/pop-up.tres" id="2_wmwda"]
 [ext_resource type="Texture2D" uid="uid://jxvtmrebsnsq" path="res://Icons/hard_mode.svg" id="3_l5t5q"]
 [ext_resource type="Texture2D" uid="uid://d15f46uyg3b8s" path="res://Icons/share.svg" id="4_1txte"]
+[ext_resource type="Texture2D" uid="uid://bn1xdnkhw801" path="res://Icons/hide.svg" id="5_26557"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmwda"]
 bg_color = Color(0.121569, 0.133333, 0.160784, 1)
@@ -138,5 +139,17 @@ text = "Copied to clipboard"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Hide" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+texture_normal = ExtResource("5_26557")
+stretch_mode = 4
+
 [connection signal="pressed" from="Stats/VBoxContainer/Switch" to="." method="_on_switch_pressed"]
 [connection signal="pressed" from="Stats/Share" to="." method="share"]
+[connection signal="pressed" from="Hide" to="." method="hide_screen"]

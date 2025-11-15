@@ -14,8 +14,8 @@ var styles: Dictionary[String,StyleBox] = {
 	"orange_hover":load("res://Styleboxes/orange_hover_button.tres")}
 
 const DIFFICULTY_TOOLTIPS: Dictionary[Root.Difficulty,String] = {
-	Root.Difficulty.easy: "Problems in easy mode only require addition and subtraction.",
-	Root.Difficulty.hard: "Problems in hard mode always require a multiplication.",
+	Root.Difficulty.easy: "Puzzles in easy mode only require addition and subtraction.",
+	Root.Difficulty.hard: "Puzzles in hard mode always require a multiplication.",
 	Root.Difficulty.quint_target: "Quint targets require 5 numbers and a multiplication."}
 
 func _ready() -> void:

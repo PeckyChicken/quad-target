@@ -23,6 +23,8 @@ var text_fade_tween: Tween
 func _ready() -> void:
 	$Fade.modulate.a = 0
 	$Stats.modulate.a = 0
+	$Hide.modulate.a = 0
+	
 	$Stats/Share/copied.modulate.a = 0
 	
 	$Stats/VBoxContainer/HBoxContainer/Time.text = "%sIcons/hourglass.png[/img] %s" % [image_load_string,format_time(int(time))]
@@ -58,13 +60,32 @@ func fade_on():
 		tween.tween_property(container,"modulate:a",0.0,0.25)
 	
 	tween.tween_property($Fade,"modulate:a",1.0,0.25)
+	tween.tween_property($Hide,"modulate:a",1.0,0.25)
 	
 	tween.tween_property($Stats,"modulate:a",1.0,0.5)
+	
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+func hide_screen():
+	var tween: Tween = create_tween()
+	
+	var tween_ons: Array = root.containers + [$"../Target",$"../Equation/equals"]
+	tween_ons.shuffle()
+	
+	tween.tween_property($Fade,"modulate:a",0.0,0.1)
+	tween.tween_property($Stats,"modulate:a",0.0,0.1)
+	tween.tween_property($Hide,"modulate:a",0.0,0.1)
+	
+	for container in tween_ons:
+		tween.tween_property(container,"modulate:a",1.0,0.1)
+	
+	await tween.finished
+	
+	
 
 func share():
 	const SOLUTION_TEMPLATE = '''🔢 {name} Target {date}
