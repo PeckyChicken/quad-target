@@ -6,13 +6,6 @@
 [node name="Control" instance=ExtResource("1_ytr7k")]
 script = ExtResource("2_vih1r")
 
-[node name="Date" parent="." index="1"]
-anchors_preset = -1
-anchor_top = 0.05
-anchor_bottom = 0.05
-theme_override_font_sizes/normal_font_size = 22
-fit_content = true
-
 [node name="Equation" parent="." index="2"]
 custom_minimum_size = Vector2(50, 50)
 offset_left = -55.0
@@ -37,8 +30,6 @@ size_flags_horizontal = 4
 custom_minimum_size = Vector2(100, 100)
 
 [node name="Storage" parent="." index="3"]
-anchor_top = 0.15
-anchor_bottom = 0.15
 pivot_offset = Vector2(55, 0)
 
 [node name="VBoxContainer" parent="." index="6"]
@@ -47,8 +38,11 @@ offset_top = 47.0
 offset_right = 262.0
 offset_bottom = 168.0
 
-[node name="Difficulty" parent="VBoxContainer" index="0"]
-theme_override_font_sizes/font_size = 30
-
-[node name="Help" parent="VBoxContainer" index="2"]
+[node name="Help" parent="VBoxContainer" index="0"]
 custom_minimum_size = Vector2(50, 50)
+
+[node name="HelpMenu" parent="VBoxContainer/Help" index="0"]
+offset_left = -100.0
+offset_top = 6.0
+offset_right = 226.0
+offset_bottom = 476.0

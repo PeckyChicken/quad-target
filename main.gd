@@ -151,10 +151,10 @@ func check_win(tile:Tile):
 
 func set_date():
 	if difficulty == Difficulty.quint_target:
-		$Date.text = "Quint Target"
+		$Info/Title.text = "Quint Target"
 	else:
-		$Date.text = "Quad Target"
-	$Date.text += "\n%s, %d %s %d" % [
+		$Info/Title.text = "Quad Target"
+	$Info/Date.text = "%s, %d %s %d" % [
 		WEEKDAYS[date.weekday],
 		date.day,
 		MONTHS[date.month - 1],
