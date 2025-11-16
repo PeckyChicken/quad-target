@@ -25,7 +25,7 @@ var drag_state: DragState = DragState.NONE
 @onready var root: Root = get_tree().root.get_child(get_tree().root.get_child_count()-1)
 @onready var overlap: Control = root
 
-@onready var shadow_tile: PackedScene = load("res://shadow_tile.tscn")
+@onready var shadow_tile: PackedScene = load("res://Tiles/shadow_tile.tscn")
 
 @onready var expression_container: ExpressionContainer = root.get_node("Equation/Expression/Symbols")
 @onready var answer_container: AnswerContainer = root.get_node("Equation/Answer/Symbols")
@@ -147,7 +147,7 @@ func add_move():
 	Events.MakeNumberList.emit()
 	await get_tree().process_frame
 	if root.save_active:
-		Save.save(root.save_name,{"moves":root.moves,"time":root.timer},root.date,root.total_numbers,root.target,root.difficulty in root.wins)
+		Save.save(root.save_name,{"moves":root.moves,"time":root.timer,"solution":root.solution} if root.solution else {"moves":root.moves,"time":root.timer},root.date,root.total_numbers,root.target,root.difficulty in root.wins)
 	
 
 func end_drag():

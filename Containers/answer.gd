@@ -1,8 +1,8 @@
 class_name AnswerContainer
 extends NumberContainer
 
-@onready var number_tile: PackedScene = load("res://number_tile.tscn")
-@onready var operation_tile: PackedScene = load("res://operation_tile.tscn")
+@onready var number_tile: PackedScene = load("res://Tiles/number_tile.tscn")
+@onready var operation_tile: PackedScene = load("res://Tiles/operation_tile.tscn")
 
 func _ready() -> void:
 	super()

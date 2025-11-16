@@ -4,8 +4,8 @@ extends NumberContainer
 var operation_array = ["+","-","×","÷","(",")","*","/"]
 
 var answer: Tile
-@onready var number_tile: PackedScene = load("res://number_tile.tscn")
-@onready var error_tile: PackedScene = load("res://error_tile.tscn")
+@onready var number_tile: PackedScene = load("res://Tiles/number_tile.tscn")
+@onready var error_tile: PackedScene = load("res://Tiles/error_tile.tscn")
 
 var parser := Expression.new()
 

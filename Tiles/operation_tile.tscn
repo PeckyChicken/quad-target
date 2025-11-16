@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dq3nhvmg72xlh"]
 
-[ext_resource type="PackedScene" uid="uid://c5gpvxvl115gk" path="res://tile.tscn" id="1_draqo"]
-[ext_resource type="Script" uid="uid://c3ntjcb722b68" path="res://operation_tile.gd" id="2_0246x"]
+[ext_resource type="PackedScene" uid="uid://c5gpvxvl115gk" path="res://Tiles/tile.tscn" id="1_draqo"]
+[ext_resource type="Script" uid="uid://c3ntjcb722b68" path="res://Tiles/operation_tile.gd" id="2_0246x"]
 
 [node name="Operation Tile" instance=ExtResource("1_draqo")]
 script = ExtResource("2_0246x")

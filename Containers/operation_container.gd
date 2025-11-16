@@ -2,7 +2,7 @@ class_name OperationContainer
 extends NumberContainer
 
 var operation_array = ["+","-","×","÷","(",")"]
-@onready var operation_tile: PackedScene = load("res://operation_tile.tscn")
+@onready var operation_tile: PackedScene = load("res://Tiles/operation_tile.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

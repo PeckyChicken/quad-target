@@ -2,7 +2,7 @@
 
 [ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://Styleboxes/pop-up.tres" id="1_qnmd2"]
 [ext_resource type="Script" uid="uid://bty3rid1xj8yd" path="res://addons/calendar_button/assets/calendar_button.gd" id="2_x66kw"]
-[ext_resource type="Script" uid="uid://n0dqt8kth4vt" path="res://panel_container.gd" id="2_yg2wv"]
+[ext_resource type="Script" uid="uid://n0dqt8kth4vt" path="res://Menus/panel_container.gd" id="2_yg2wv"]
 
 [node name="PanelContainer" type="PanelContainer"]
 process_mode = 3

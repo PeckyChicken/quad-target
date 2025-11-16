@@ -60,9 +60,9 @@ func fade_on():
 		tween.tween_property(container,"modulate:a",0.0,0.25)
 	
 	tween.tween_property($Fade,"modulate:a",1.0,0.25)
+	tween.tween_property($Stats,"modulate:a",1.0,0.5)
 	tween.tween_property($Hide,"modulate:a",1.0,0.25)
 	
-	tween.tween_property($Stats,"modulate:a",1.0,0.5)
 	
 	
 
@@ -71,20 +71,22 @@ func _process(_delta: float) -> void:
 	pass
 
 func hide_screen():
+	root.save_active = false
 	var tween: Tween = create_tween()
 	
 	var tween_ons: Array = root.containers + [$"../Target",$"../Equation/equals"]
 	tween_ons.shuffle()
 	
-	tween.tween_property($Fade,"modulate:a",0.0,0.1)
-	tween.tween_property($Stats,"modulate:a",0.0,0.1)
 	tween.tween_property($Hide,"modulate:a",0.0,0.1)
+	tween.tween_property($Stats,"modulate:a",0.0,0.1)
+	tween.tween_property($Fade,"modulate:a",0.0,0.1)
 	
 	for container in tween_ons:
 		tween.tween_property(container,"modulate:a",1.0,0.1)
 	
 	await tween.finished
-	
+	get_tree().paused = false
+	queue_free()
 	
 
 func share():

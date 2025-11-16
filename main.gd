@@ -28,10 +28,10 @@ var number_count: int = 4
 var starting_numbers: Array
 var total_numbers: Array
 
-@onready var NUMBER_TILE_SCENE: PackedScene = load("res://number_tile.tscn")
-@onready var TARGET_TILE_SCENE: PackedScene = load("res://target_tile.tscn")
-@onready var WIN_SCENE: PackedScene = load("res://win_screen.tscn")
-@onready var PANEL_CONTAINER_SCENE: PackedScene = load("res://panel_container.tscn")
+@onready var NUMBER_TILE_SCENE: PackedScene = load("res://Tiles/number_tile.tscn")
+@onready var TARGET_TILE_SCENE: PackedScene = load("res://Tiles/target_tile.tscn")
+@onready var WIN_SCENE: PackedScene = load("res://Menus/win_screen.tscn")
+@onready var PANEL_CONTAINER_SCENE: PackedScene = load("res://Menus/panel_container.tscn")
 
 var date_override: bool = false
 var date: Dictionary
@@ -55,6 +55,7 @@ var save_data: Dictionary
 var save_active := true
 
 var wins: Array[Difficulty] = []
+var solution: String
 
 @onready var answer_container = $Equation/Answer/Symbols
 
@@ -118,30 +119,32 @@ func reload_cache(cache):
 		wins = cache["wins"]
 
 func create_solution(history) -> String:
-	var solution: String = ""
+	var _solution: String = ""
 	for component in history:
 		if component is Array:
-			solution += " (%s)" % [create_solution(component)]
+			_solution += " (%s)" % [create_solution(component)]
 			continue
-		solution += " " + str(component)
+		_solution += " " + str(component)
 	
-	return solution.strip_edges().replace("( ","(").replace(" )",")")
+	return _solution.strip_edges().replace("( ","(").replace(" )",")")
 
-func create_win_screen(time,move_count,solution):
+func create_win_screen(time,move_count,_solution):
 	if difficulty not in wins:
 		wins.append(difficulty)
 	var win_screen: WinScreen = WIN_SCENE.instantiate()
 	win_screen.time = time
 	win_screen.moves = move_count
-	win_screen.solution = solution
+	win_screen.solution = _solution
 	add_child(win_screen)
 
 func check_win(tile:Tile):
 	if tile is NumberTile and tile is not TargetTile and tile.number == target:
-		Events.PlaySound.emit("win",tile.global_position)
 		tile.get_node("Outline").color = Color("#737C63")
 		tile.get_node("Fill").color = Color("#1B3A1B")
-		var solution = create_solution(tile.history) + " = " + str(tile.number)
+		if difficulty in wins:
+			return
+		Events.PlaySound.emit("win",tile.global_position)
+		solution = create_solution(tile.history) + " = " + str(tile.number)
 		create_win_screen(timer,moves,solution)
 		if save_active:
 			Save.save(save_name,{"moves":moves,"time":timer,"solution":solution},date,total_numbers,target,difficulty in wins)

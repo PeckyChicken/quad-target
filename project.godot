@@ -19,9 +19,9 @@ config/icon="res://logo_small.png"
 
 [autoload]
 
-Events="*res://EVENTS.gd"
-Audio="*res://AUDIO.gd"
-Save="*res://GAME_SAVE.gd"
+Events="*res://Globals/EVENTS.gd"
+Audio="*res://Globals/AUDIO.gd"
+Save="*res://Globals/GAME_SAVE.gd"
 
 [debug]
 
