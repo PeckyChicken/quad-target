@@ -10,7 +10,6 @@ var open: bool = false
 const ANIMATION_SECONDS = 0.5
 var tween: Tween
 
-
 func _on_pressed() -> void:
 	var menu_size = $"../Menu".size.x
 	var move_pos: float

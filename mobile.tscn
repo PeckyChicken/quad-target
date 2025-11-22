@@ -1,10 +1,38 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4ik4o11223i2"]
+[gd_scene load_steps=4 format=3 uid="uid://c4ik4o11223i2"]
 
 [ext_resource type="PackedScene" uid="uid://dfxrgpbx000de" path="res://main.tscn" id="1_ytr7k"]
 [ext_resource type="Script" uid="uid://bb6bucxsrtinc" path="res://mobile.gd" id="2_vih1r"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bj8h8"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(1, 1, 1, 0.2509804)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.5019608)
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
 [node name="Control" instance=ExtResource("1_ytr7k")]
 script = ExtResource("2_vih1r")
+
+[node name="Info" parent="." index="1"]
+offset_top = 120.0
+offset_bottom = 233.0
+
+[node name="Title" parent="Info" index="0"]
+theme_override_font_sizes/normal_font_size = 30
+
+[node name="Date" parent="Info" index="1"]
+theme_override_font_sizes/normal_font_size = 30
+
+[node name="Difficulty" parent="Info" index="2"]
+theme_override_font_sizes/normal_font_size = 30
 
 [node name="Equation" parent="." index="2"]
 custom_minimum_size = Vector2(50, 50)
@@ -32,17 +60,19 @@ custom_minimum_size = Vector2(100, 100)
 [node name="Storage" parent="." index="3"]
 pivot_offset = Vector2(55, 0)
 
-[node name="VBoxContainer" parent="." index="6"]
-offset_left = 46.0
-offset_top = 47.0
-offset_right = 262.0
-offset_bottom = 168.0
+[node name="Menu" parent="." index="6"]
+offset_left = 3.0
+offset_top = 75.0
+offset_right = 37.0
+offset_bottom = 113.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_bj8h8")
 
-[node name="Help" parent="VBoxContainer" index="0"]
-custom_minimum_size = Vector2(50, 50)
+[node name="MenuListButton" parent="." index="7"]
+offset_left = 53.0
+offset_top = 46.0
+offset_right = 153.0
+offset_bottom = 146.0
 
-[node name="HelpMenu" parent="VBoxContainer/Help" index="0"]
-offset_left = -100.0
-offset_top = 6.0
-offset_right = 226.0
-offset_bottom = 476.0
+[node name="Menu" parent="MenuListButton" index="1"]
+offset_top = 12.0
+offset_bottom = 12.0

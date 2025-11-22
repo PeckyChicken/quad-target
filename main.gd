@@ -232,7 +232,8 @@ func _input(_event: InputEvent) -> void:
 			__ += 1
 			Events.PlaySound.emit("mysterious",size/2+global_position)
 			add_child(PANEL_CONTAINER_SCENE.instantiate())
-	
+
+
 
 func _process(delta: float) -> void:
 	timer += delta

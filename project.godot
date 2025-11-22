@@ -30,7 +30,7 @@ gdscript/warnings/unused_signal=0
 [display]
 
 window/size/initial_position_type=4
-window/handheld/orientation=6
+window/handheld/orientation=1
 
 [editor]
 

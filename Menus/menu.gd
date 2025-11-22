@@ -2,8 +2,12 @@ class_name Menu
 extends PanelContainer
 @onready var root: Root = $".."
 
-@onready var MAIN_SCENE = load("res://main.tscn")
+@onready var MAIN_SCENE: PackedScene = load("res://main.tscn")
+@onready var MOBILE_SCENE: PackedScene = load("res://mobile.tscn")
 
+
+const MAIN_FONT_SIZE = 20
+const MOBILE_FONT_SIZE = 50
 
 var styles: Dictionary[String,StyleBox] = {
 	"green_unpressed":load("res://Styleboxes/green_unpressed_button.tres"),
@@ -21,12 +25,17 @@ const DIFFICULTY_TOOLTIPS: Dictionary[Root.Difficulty,String] = {
 func _ready() -> void:
 	await get_tree().process_frame
 	
+	if root is Mobile:
+		$VBox/Help.custom_minimum_size = Vector2(MOBILE_FONT_SIZE*1.5,MOBILE_FONT_SIZE*1.5)
 	create_difficulty_buttons()
 	position.x = -size.x
 
 func change_difficulty(new_difficulty):
 	var new_scene: Root
-	new_scene = MAIN_SCENE.instantiate()
+	if root is Mobile:
+		new_scene = MOBILE_SCENE.instantiate()
+	else:
+		new_scene = MAIN_SCENE.instantiate()
 	new_scene.difficulty = new_difficulty
 	
 	if root.save_active:
@@ -65,6 +74,11 @@ func create_difficulty_buttons():
 			new_button.add_theme_stylebox_override("normal",styles["orange_unpressed"])
 			new_button.add_theme_stylebox_override("pressed",styles["orange_pressed"])
 			new_button.add_theme_stylebox_override("hover",styles["orange_hover"])
+		
+		if root is Mobile:
+			new_button.add_theme_font_size_override("font_size",MOBILE_FONT_SIZE)
+		else:
+			new_button.add_theme_font_size_override("font_size",MAIN_FONT_SIZE)
 		
 		new_button.tooltip_text = DIFFICULTY_TOOLTIPS[difficulty]
 		

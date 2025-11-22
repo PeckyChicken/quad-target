@@ -30,6 +30,8 @@ func tile_added(_tile: Tile):
 func length(include_shadow=true) -> int:
 	var _length = 0
 	for child in get_children():
+		if child is ErrorTile:
+			continue
 		if include_shadow or child.type != Root.Tiles.SHADOW:
 			_length += 1
 			continue

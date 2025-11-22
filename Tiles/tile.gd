@@ -185,6 +185,8 @@ func drag(event:InputEventMouseMotion):
 
 
 func _input(event:InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
+		return
 	if not draggable:
 		return
 	await get_tree().process_frame
@@ -214,6 +216,8 @@ func quick_move(container=null):
 	add_to_container(container,Vector2.INF)
 
 func _on_click(event: InputEventMouseButton) -> void:
+	if event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
+		return
 	await get_tree().process_frame
 	movement = 0
 	drag_state = DragState.DRAGGING
@@ -233,6 +237,8 @@ func _on_click(event: InputEventMouseButton) -> void:
 	dragging = event.is_pressed()
 
 func _on_gui_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
+		return
 	if not draggable:
 		return
 	if event is InputEventMouseButton and event.is_pressed():
