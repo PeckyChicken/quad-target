@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://ch50jrtbxfnxs"]
-
-[ext_resource type="PackedScene" uid="uid://c5gpvxvl115gk" path="res://tile.tscn" id="1_0cdx6"]
-[ext_resource type="Script" uid="uid://dkqh5nof2equp" path="res://shadow_tile.gd" id="2_ng3oo"]
-
-[node name="Shadow Tile" instance=ExtResource("1_0cdx6")]
-modulate = Color(1, 1, 1, 0.5)
-script = ExtResource("2_ng3oo")

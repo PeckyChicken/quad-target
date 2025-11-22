@@ -1,0 +1,155 @@
+[gd_scene load_steps=8 format=3 uid="uid://b8vv2erkk11hq"]
+
+[ext_resource type="Script" uid="uid://dyb114aybsgpj" path="res://Menus/win.gd" id="1_l2arl"]
+[ext_resource type="StyleBox" uid="uid://d07p4vu7fnr8d" path="res://Styleboxes/pop-up.tres" id="2_wmwda"]
+[ext_resource type="Texture2D" uid="uid://jxvtmrebsnsq" path="res://Icons/hard_mode.svg" id="3_l5t5q"]
+[ext_resource type="Texture2D" uid="uid://d15f46uyg3b8s" path="res://Icons/share.svg" id="4_1txte"]
+[ext_resource type="Texture2D" uid="uid://bn1xdnkhw801" path="res://Icons/hide.svg" id="5_26557"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wmwda"]
+bg_color = Color(0.121569, 0.133333, 0.160784, 1)
+border_width_top = 5
+border_width_bottom = 5
+border_color = Color(0.164706, 0.176471, 0.207843, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l5t5q"]
+
+[node name="Win Screen" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l2arl")
+
+[node name="Fade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.25)
+
+[node name="Stats" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.33
+anchor_top = 0.1
+anchor_right = 0.66
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = ExtResource("2_wmwda")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Stats"]
+layout_mode = 2
+
+[node name="Congratulations" type="RichTextLabel" parent="Stats/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 25
+text = "Quad Target solved!"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Stats/VBoxContainer"]
+custom_minimum_size = Vector2(0, 15)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Stats/VBoxContainer"]
+layout_mode = 2
+
+[node name="Time" type="RichTextLabel" parent="Stats/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[img alt=\"Time\"]Icons/hourglass.png[/img] 0:00"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Moves" type="RichTextLabel" parent="Stats/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[img alt=\"Moves\"]Icons/swapping.png[/img] 8"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="Stats/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_wmwda")
+
+[node name="Solution" type="RichTextLabel" parent="Stats/VBoxContainer/Panel"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 2
+mouse_default_cursor_shape = 1
+theme_override_font_sizes/normal_font_size = 25
+theme_override_styles/focus = SubResource("StyleBoxEmpty_l5t5q")
+text = "(54 + 67) x 12 / 66 = 22"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+selection_enabled = true
+
+[node name="Mode" type="RichTextLabel" parent="Stats/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 25
+bbcode_enabled = true
+text = "[img width=25]Icons/easy_mode.svg[/img] Easy Mode"
+fit_content = true
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Switch" type="Button" parent="Stats/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 25
+text = "Play Hard?"
+icon = ExtResource("3_l5t5q")
+
+[node name="Share" type="Button" parent="Stats"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 25
+text = "Share"
+icon = ExtResource("4_1txte")
+
+[node name="copied" type="RichTextLabel" parent="Stats/Share"]
+layout_mode = 0
+offset_left = -127.0
+offset_top = -42.0
+offset_right = 233.0
+offset_bottom = 3.0
+text = "Copied to clipboard"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Hide" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+texture_normal = ExtResource("5_26557")
+stretch_mode = 4
+
+[connection signal="pressed" from="Stats/VBoxContainer/Switch" to="." method="_on_switch_pressed"]
+[connection signal="pressed" from="Stats/Share" to="." method="share"]
+[connection signal="pressed" from="Hide" to="." method="hide_screen"]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgf7opqsvmnv3"]
+
+[ext_resource type="PackedScene" uid="uid://dnbua4du5nydd" path="res://Tiles/number_tile.tscn" id="1_27qeu"]
+[ext_resource type="Script" uid="uid://cbndktxlnt41s" path="res://Tiles/target_tile.gd" id="1_wmxdp"]
+
+[node name="Target Tile" instance=ExtResource("1_27qeu")]
+script = ExtResource("1_wmxdp")
+
+[node name="Outline" parent="." index="0"]
+color = Color(0.160784, 0.47451, 1, 1)
+
+[node name="Equation" parent="." index="3"]
+anchor_top = 0.9
+anchor_bottom = 0.9
+theme_override_font_sizes/normal_font_size = 20
+text = "Target"
+fit_content = true

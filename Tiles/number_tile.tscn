@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnbua4du5nydd"]
+
+[ext_resource type="Script" uid="uid://bdpoeev556b8s" path="res://Tiles/number_tile.gd" id="1_7h3xa"]
+[ext_resource type="PackedScene" uid="uid://c5gpvxvl115gk" path="res://Tiles/tile.tscn" id="1_f10jo"]
+
+[node name="Number Tile" instance=ExtResource("1_f10jo")]
+script = ExtResource("1_7h3xa")
+number = 0
+expression = ""
+
+[node name="Number" type="RichTextLabel" parent="." index="2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.9
+offset_left = -6.10352e-05
+offset_right = -6.10352e-05
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_type_variation = &"text"
+theme_override_font_sizes/normal_font_size = 50
+text = "42"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Equation" type="RichTextLabel" parent="." index="3"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.85
+anchor_right = 0.5
+anchor_bottom = 0.85
+offset_left = -50.0
+offset_top = -20.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.9, 0.9)
+pivot_offset = Vector2(50, 0)
+mouse_filter = 1
+theme_type_variation = &"text"
+theme_override_font_sizes/normal_font_size = 12
+text = "(17+5)*3-24"
+scroll_active = false
+horizontal_alignment = 1
+vertical_alignment = 1

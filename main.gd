@@ -28,10 +28,10 @@ var number_count: int = 4
 var starting_numbers: Array
 var total_numbers: Array
 
-@onready var NUMBER_TILE_SCENE: PackedScene = load("res://number_tile.tscn")
-@onready var TARGET_TILE_SCENE: PackedScene = load("res://target_tile.tscn")
-@onready var WIN_SCENE: PackedScene = load("res://win_screen.tscn")
-@onready var PANEL_CONTAINER_SCENE: PackedScene = load("res://panel_container.tscn")
+@onready var NUMBER_TILE_SCENE: PackedScene = load("res://Tiles/number_tile.tscn")
+@onready var TARGET_TILE_SCENE: PackedScene = load("res://Tiles/target_tile.tscn")
+@onready var WIN_SCENE: PackedScene = load("res://Menus/win_screen.tscn")
+@onready var PANEL_CONTAINER_SCENE: PackedScene = load("res://Menus/panel_container.tscn")
 
 var date_override: bool = false
 var date: Dictionary
@@ -54,7 +54,8 @@ var save_data: Dictionary
 
 var save_active := true
 
-var win_screen_shown := false
+var wins: Array[Difficulty] = []
+var solution: String
 
 @onready var answer_container = $Equation/Answer/Symbols
 
@@ -68,11 +69,10 @@ func _ready() -> void:
 	if difficulty == Difficulty.quint_target:
 		number_count = 5
 	save_name = "%s_mode_save" % [Difficulty.keys()[difficulty]]
-	print(save_name)
 	save_data = Save.load_save(save_name)
 	if save_data["success"]:
 		reload_save(save_data)
-		if win_screen_shown:
+		if save_data.get("mode_beaten"):
 			Events.PlaySound.emit("win",get_viewport().get_visible_rect().size/2)
 			create_win_screen(timer,moves,save_data["stats"]["solution"])
 	else:
@@ -91,14 +91,13 @@ func _ready() -> void:
 
 func save_cache():
 	if save_active:
-		print("Saving cache....")
-		Save.save_cache(difficulty,win_screen_shown)
+		Save.save_cache(difficulty,wins)
 
 
 func _notification(what):
 	if what in [NOTIFICATION_WM_CLOSE_REQUEST,NOTIFICATION_APPLICATION_PAUSED,NOTIFICATION_APPLICATION_FOCUS_OUT]:
 		save_cache()
-		if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		if what == NOTIFICATION_WM_CLOSE_REQUEST and ((not OS.has_feature("mobile")) or OS.has_feature("web")):
 			get_tree().quit()
 
 func reload_save(data:Dictionary):
@@ -111,50 +110,54 @@ func reload_save(data:Dictionary):
 	
 	number_count = 5 if difficulty == Difficulty.quint_target else 4
 	starting_numbers = data["numbers"]
+	starting_numbers.sort()
 
 func reload_cache(cache):
 	if "difficulty" in cache:
 		difficulty = cache.get("difficulty") as Difficulty
-	if "win_screen_shown" in cache and cache["win_screen_shown"]:
-		win_screen_shown = true
+	if "wins" in cache and cache["wins"]:
+		wins = cache["wins"]
 
 func create_solution(history) -> String:
-	var solution: String = ""
+	var _solution: String = ""
 	for component in history:
 		if component is Array:
-			solution += " (%s)" % [create_solution(component)]
+			_solution += " (%s)" % [create_solution(component)]
 			continue
-		solution += " " + str(component)
+		_solution += " " + str(component)
 	
-	return solution.strip_edges().replace("( ","(").replace(" )",")")
+	return _solution.strip_edges().replace("( ","(").replace(" )",")")
 
-func create_win_screen(time,move_count,solution):
+func create_win_screen(time,move_count,_solution):
+	if difficulty not in wins:
+		wins.append(difficulty)
 	var win_screen: WinScreen = WIN_SCENE.instantiate()
 	win_screen.time = time
 	win_screen.moves = move_count
-	win_screen.solution = solution
+	win_screen.solution = _solution
 	add_child(win_screen)
-	win_screen_shown = true
 
 func check_win(tile:Tile):
 	if tile is NumberTile and tile is not TargetTile and tile.number == target:
-		Events.PlaySound.emit("win",tile.global_position)
 		tile.get_node("Outline").color = Color("#737C63")
 		tile.get_node("Fill").color = Color("#1B3A1B")
-		var solution = create_solution(tile.history) + " = " + str(tile.number)
+		if difficulty in wins:
+			return
+		Events.PlaySound.emit("win",tile.global_position)
+		solution = create_solution(tile.history) + " = " + str(tile.number)
 		create_win_screen(timer,moves,solution)
 		if save_active:
-			Save.save(save_name,{"moves":moves,"time":timer,"solution":solution},date,total_numbers,target,difficulty == Difficulty.hard)
-			Save.save_cache(difficulty,true)
+			Save.save(save_name,{"moves":moves,"time":timer,"solution":solution},date,total_numbers,target,difficulty in wins)
+			Save.save_cache(difficulty,wins)
 		
 		get_tree().paused = true
 
 func set_date():
 	if difficulty == Difficulty.quint_target:
-		$Date.text = "Quint Target"
+		$Info/Title.text = "Quint Target"
 	else:
-		$Date.text = "Quad Target"
-	$Date.text += "\n%s, %d %s %d" % [
+		$Info/Title.text = "Quad Target"
+	$Info/Date.text = "%s, %d %s %d" % [
 		WEEKDAYS[date.weekday],
 		date.day,
 		MONTHS[date.month - 1],
@@ -229,7 +232,8 @@ func _input(_event: InputEvent) -> void:
 			__ += 1
 			Events.PlaySound.emit("mysterious",size/2+global_position)
 			add_child(PANEL_CONTAINER_SCENE.instantiate())
-	
+
+
 
 func _process(delta: float) -> void:
 	timer += delta
