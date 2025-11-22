@@ -34,7 +34,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Help" type="TextureRect" parent="VBox"]
-custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 texture = ExtResource("2_ytr4m")
