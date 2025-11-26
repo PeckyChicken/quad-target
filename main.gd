@@ -62,6 +62,10 @@ var solution: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if OS.has_feature("web"):
+		print("Here")
+		get_web_params()
+	
 	if Save.cache_loaded:
 		save_cache()
 	else:
@@ -88,6 +92,88 @@ func _ready() -> void:
 	Events.MakeNumberList.connect(func():total_numbers=[])
 	
 	Events.SaveCache.connect(save_cache)
+
+func get_web_params():
+	var query := _get_url_query()
+	var params := _parse_query_params(query)
+
+	# Front-end "API" mode: ?api=1 or ?api=true or ?api=json
+	if params.get("api", "") in ["1", "true", "json"]:
+		var info := get_puzzle_info(params)
+		var json_text := JSON.stringify(info)
+		var doc := JavaScriptBridge.get_interface("document")
+		if doc:
+			# replace page content with json text (no header changes possible from client-side)
+			doc.open()
+			doc.write(json_text)
+			doc.close()
+		# stop the game / avoid normal UI init (quit engine in HTML5 to leave JSON page)
+		get_tree().quit()
+		return
+
+	var param_as_list := []
+	for param in params:
+		param_as_list.append(param +"="+params[param])
+
+# return a serialisable dictionary describing the puzzle (basic)
+func get_puzzle_info(params: Dictionary) -> Dictionary:
+	var info: Dictionary = {}
+	# decide date / seed using provided date param or system date
+	var used_date: Dictionary
+	if params.has("date"):
+	# expect YYYY-MM-DD (best-effort)
+		var parts = params["date"].split("-")
+		if parts.size() >= 3:
+			used_date = {
+			"year": int(parts[0]),
+			"month": int(parts[1]),
+			"day": int(parts[2]),
+			"hour": 0, "minute": 0, "second": 0
+			}
+		else:
+			used_date = Time.get_datetime_dict_from_system()
+	else:
+		used_date = Time.get_datetime_dict_from_system()
+		used_date["hour"] = 0
+		used_date["minute"] = 0
+		used_date["second"] = 0
+
+	var _seed := Time.get_unix_time_from_datetime_dict(used_date)
+	# return available runtime values if set, otherwise minimal info
+	info["ok"] = true
+	info["params"] = params
+	info["seed"] = seed
+	info["date"] = used_date
+	info["difficulty"] = Difficulty.keys()[difficulty] if difficulty != null else null
+	info["target"] = target
+	info["numbers"] = starting_numbers if starting_numbers != null else (total_numbers if total_numbers != null else [])
+	return info
+
+func _get_url_query() -> String:
+	var js := JavaScriptBridge.get_interface("window")
+	if js:
+		# window.location.search returns the query string like "?day=42"
+		return js.location.search
+	return ""
+
+
+func _parse_query_params(query: String) -> Dictionary:
+	var result: Dictionary = {}
+
+	if query.begins_with("?"):
+		query = query.substr(1)
+
+	if query == "":
+		return result
+
+	for pair in query.split("&"):
+		var parts = pair.split("=")
+		if parts.size() == 2:
+			var key = parts[0].uri_decode()
+			var value = parts[1].uri_decode()
+			result[key] = value
+
+	return result
 
 func save_cache():
 	if save_active:

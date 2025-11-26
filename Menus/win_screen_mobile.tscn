@@ -29,7 +29,7 @@ theme_override_font_sizes/normal_font_size = 50
 
 [node name="Mode" parent="Stats/VBoxContainer" index="4"]
 theme_override_font_sizes/normal_font_size = 50
-text = "[img width=50]easy_mode.svg[/img] Easy Mode"
+text = "[img width=50]Icons/easy_mode.svg[/img] Easy Mode"
 
 [node name="Switch" parent="Stats/VBoxContainer" index="5"]
 custom_minimum_size = Vector2(350, 0)
@@ -50,3 +50,9 @@ theme_override_font_sizes/normal_font_size = 40
 [node name="Share" type="Node" parent="." index="2"]
 script = ExtResource("3_2h8jb")
 metadata/_custom_type_script = "uid://cwbi5d7gmuvn7"
+
+[node name="Hide" parent="." index="3"]
+offset_left = -178.0
+offset_top = 55.0
+offset_right = -138.0
+offset_bottom = 95.0

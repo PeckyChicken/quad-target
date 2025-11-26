@@ -18,6 +18,8 @@ enum DragState {
 	JUST_RELEASED
 }
 
+const ANIMATION_TIME = 0.1
+
 var drag_state: DragState = DragState.NONE
 
 @export var type: Root.Tiles
@@ -69,6 +71,15 @@ func return_home():
 	if not draggable:
 		return
 
+func _sort_in_container(object:Control,container:NumberContainer,temp_position=null):
+	temp_position = temp_position if temp_position else object.global_position
+	for node in container.get_children():
+		
+		if node == object:
+			continue
+		if node.global_position.x >= temp_position.x:
+			container.move_child(node,container.get_child_count()-1)
+
 func add_to_container(container: NumberContainer,temp_position_override=null):
 	if container.max_size >= 0:
 		assert (container.length(false) <= container.max_size,"Container overflow error: Length: %s, Max Size: %s, Contents: %s" % [container.length(),container.max_size,str(container.get_children())])
@@ -85,18 +96,28 @@ func add_to_container(container: NumberContainer,temp_position_override=null):
 	
 	overlap = container
 	
+	
+	_sort_in_container(self,container,temp_position)
+	
 	container.tile_added(self)
+
+func smooth_add_to_container(container: NumberContainer,time:float,temp_position_override=null):
+	var start_pos := global_position
 	
-	for node in container.get_children():
-		
-		if node == self:
-			continue
-		if node.global_position.x >= temp_position.x:
-			container.move_child(node,container.get_child_count()-1)
+	var switching_container = (container != parent_container)
 	
-	if self is not ShadowTile:
-		pass
-		
+	add_to_container(container,temp_position_override)
+	await get_tree().process_frame
+	
+	var end_pos := global_position
+	
+	var tween = get_tree().create_tween()
+	if switching_container:
+		reparent(root)
+	global_position = start_pos
+	tween.tween_property(self,"global_position",end_pos,time)
+	await tween.finished
+	add_to_container(container,temp_position_override)
 
 func delete_shadow():
 	if shadow:
