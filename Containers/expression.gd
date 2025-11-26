@@ -184,6 +184,12 @@ func _process(_delta: float) -> void:
 	
 	var expression = create_expression()
 	var history = create_history()
+	
+	if num_components == 0:
+		$"../../Recall Tile".hide()
+	else:
+		$"../../Recall Tile".show()
+	
 	if num_components > 1:
 		var parse_check = validate_expression(godotify_expression(expression))
 		if parse_check[0]:

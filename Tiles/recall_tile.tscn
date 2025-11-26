@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://coi4yx7ym8py1"]
+
+[ext_resource type="PackedScene" uid="uid://c5gpvxvl115gk" path="res://Tiles/tile.tscn" id="1_ropp5"]
+[ext_resource type="Script" uid="uid://bulu4ashlaq6q" path="res://Tiles/recall_tile.gd" id="2_i0klq"]
+
+[node name="Recall Tile" instance=ExtResource("1_ropp5")]
+script = ExtResource("2_i0klq")
+operation = ""
+type = 1
+
+[node name="Outline" parent="." index="0"]
+visible = false
+
+[node name="Fill" parent="." index="1"]
+visible = false
+
+[node name="Text" type="RichTextLabel" parent="." index="2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+theme_override_font_sizes/normal_font_size = 80
+text = "⟲"
+scroll_active = false
+horizontal_alignment = 1

@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://dfxrgpbx000de"]
+[gd_scene load_steps=17 format=3 uid="uid://dfxrgpbx000de"]
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dus01hhunb1nf" path="res://Containers/expression.gd" id="2_7mycd"]
 [ext_resource type="StyleBox" uid="uid://b4ft1tecblwx8" path="res://Styleboxes/container.tres" id="2_kek77"]
+[ext_resource type="PackedScene" uid="uid://coi4yx7ym8py1" path="res://Tiles/recall_tile.tscn" id="2_w48qg"]
 [ext_resource type="Script" uid="uid://clsanyekn3n2p" path="res://Containers/answer.gd" id="3_1bvp3"]
 [ext_resource type="Script" uid="uid://d1fhsc7ylw252" path="res://Containers/container.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://dq3nhvmg72xlh" path="res://Tiles/operation_tile.tscn" id="5_7mycd"]
@@ -119,6 +120,13 @@ grow_vertical = 2
 theme_override_constants/separation = 10
 alignment = 1
 
+[node name="Recall Tile" parent="Equation" instance=ExtResource("2_w48qg")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+type = 3
+
 [node name="Expression" type="PanelContainer" parent="Equation"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
@@ -148,6 +156,8 @@ vertical_alignment = 1
 
 [node name="equals" parent="Equation" instance=ExtResource("5_7mycd")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 operation = "="
 type = 3
 

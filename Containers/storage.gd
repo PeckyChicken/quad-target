@@ -11,6 +11,8 @@ func _ready() -> void:
 
 func sort_tiles():
 	await get_tree().process_frame
+	
+
 	var children: Array[NumberTile] = []
 	children.assign(get_children())
 	

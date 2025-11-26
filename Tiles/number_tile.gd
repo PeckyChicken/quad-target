@@ -61,7 +61,6 @@ func end_drag():
 				child.queue_free()
 			add_to_container(answer_container)
 			answer_container.recreate_expression()
-	
 
 
 func rescale(new_scale):
@@ -80,7 +79,10 @@ func _on_click(event: InputEvent):
 func return_home():
 	if not draggable:
 		return
+	reparent(root)
+	
 	add_to_container(storage_container)
+
 	
 	super()
 
