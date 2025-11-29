@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://us1oqy0jje06"]
+
+[ext_resource type="PackedScene" uid="uid://ca7v6j8yska1v" path="res://Menus/help_menu.tscn" id="1_bfn64"]
+
+[node name="HelpMenuMobile" instance=ExtResource("1_bfn64")]
+offset_top = 0.0
+offset_right = 609.0
+offset_bottom = 927.0
+
+[node name="title" parent="VBox" index="0"]
+theme_override_font_sizes/normal_font_size = 35
+
+[node name="help1" parent="VBox" index="2"]
+theme_override_font_sizes/normal_font_size = 35
+
+[node name="help2" parent="VBox" index="3"]
+theme_override_font_sizes/normal_font_size = 35
+
+[node name="help3" parent="VBox" index="4"]
+theme_override_font_sizes/normal_font_size = 35
+
+[node name="help4" parent="VBox" index="5"]
+theme_override_font_sizes/normal_font_size = 35
+
+[node name="help5" parent="VBox" index="6"]
+theme_override_font_sizes/normal_font_size = 35
+
+[node name="help6" parent="VBox" index="7"]
+theme_override_font_sizes/normal_font_size = 35
+
+[node name="help7" parent="VBox" index="8"]
+theme_override_font_sizes/normal_font_size = 35

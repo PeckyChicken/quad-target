@@ -29,6 +29,8 @@ gdscript/warnings/unused_signal=0
 
 [display]
 
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 window/size/initial_position_type=4
 window/handheld/orientation=1
 
