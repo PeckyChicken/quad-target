@@ -21,6 +21,7 @@ mouse_filter = 1
 theme_type_variation = &"text"
 theme_override_font_sizes/normal_font_size = 50
 text = "42"
+scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1
 

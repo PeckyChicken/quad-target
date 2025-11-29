@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dq3nhvmg72xlh"]
+[gd_scene load_steps=4 format=3 uid="uid://dq3nhvmg72xlh"]
 
 [ext_resource type="PackedScene" uid="uid://c5gpvxvl115gk" path="res://Tiles/tile.tscn" id="1_draqo"]
 [ext_resource type="Script" uid="uid://c3ntjcb722b68" path="res://Tiles/operation_tile.gd" id="2_0246x"]
+[ext_resource type="FontFile" uid="uid://cyi33j7besfqp" path="res://Inconsolidata.ttf" id="3_5crcq"]
 
 [node name="Operation Tile" instance=ExtResource("1_draqo")]
 script = ExtResource("2_0246x")
@@ -16,7 +17,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 theme_type_variation = &"text"
-theme_override_font_sizes/normal_font_size = 70
+theme_override_fonts/normal_font = ExtResource("3_5crcq")
+theme_override_font_sizes/normal_font_size = 100
 text = "+"
+scroll_active = false
 horizontal_alignment = 1
 vertical_alignment = 1

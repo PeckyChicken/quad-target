@@ -5,6 +5,8 @@ class_name OperationTile
 
 var clicked: bool = false
 
+const BASE_FONT_SIZE := 90
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	super()
@@ -12,7 +14,7 @@ func _ready() -> void:
 
 func rescale(new_scale):
 	super(new_scale)
-	$Operation.add_theme_font_size_override("normal_font_size",70 * new_scale.x/100)
+	$Operation.add_theme_font_size_override("normal_font_size",90 * new_scale.x/100)
 
 func find_overlap():
 	super()
