@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dfxrgpbx000de"]
+[gd_scene load_steps=19 format=3 uid="uid://dfxrgpbx000de"]
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dus01hhunb1nf" path="res://Containers/expression.gd" id="2_7mycd"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://ccyuvgwoa5atp" path="res://Icons/menu.svg" id="11_dg77c"]
 [ext_resource type="Texture2D" uid="uid://dt5cp1as8m8va" path="res://Icons/close.svg" id="12_ycdy4"]
 [ext_resource type="Script" uid="uid://0tu2puoyu6o1" path="res://menu_button.gd" id="13_vivmo"]
+[ext_resource type="Texture2D" uid="uid://bnscx7gf1xe3c" path="res://Icons/github.png" id="15_vivmo"]
 
 [sub_resource type="Theme" id="Theme_ig7tw"]
 background/colors/color = Color(0.0705882, 0.0705882, 0.0705882, 1)
@@ -43,6 +44,8 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 "
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vivmo"]
 
 [node name="Control" type="Control"]
 process_mode = 3
@@ -309,4 +312,24 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_dg77c")
 
+[node name="GitHub" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.79993
+offset_top = -63.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 30
+theme_override_styles/focus = SubResource("StyleBoxEmpty_vivmo")
+text = "GitHub"
+icon = ExtResource("15_vivmo")
+flat = true
+expand_icon = true
+
 [connection signal="pressed" from="MenuListButton" to="MenuListButton" method="_on_pressed"]
+[connection signal="pressed" from="GitHub" to="." method="_on_github_pressed"]
