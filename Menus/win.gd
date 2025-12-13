@@ -23,7 +23,6 @@ var text_fade_tween: Tween
 func _ready() -> void:
 	$Fade.modulate.a = 0
 	$Stats.modulate.a = 0
-	$Hide.modulate.a = 0
 	
 	$Stats/Share/copied.modulate.a = 0
 	
@@ -53,7 +52,7 @@ func format_time(seconds: int):
 func fade_on():
 	var tween: Tween = create_tween()
 	
-	var tween_offs: Array = root.containers + [$"../Target",$"../Equation/equals"]
+	var tween_offs: Array = root.containers + [$"../Target",$"../Equation/equals",$"../Equation/Recall Tile"]
 	tween_offs.shuffle()
 	
 	for container in tween_offs:
@@ -61,7 +60,6 @@ func fade_on():
 	
 	tween.tween_property($Fade,"modulate:a",1.0,0.25)
 	tween.tween_property($Stats,"modulate:a",1.0,0.5)
-	tween.tween_property($Hide,"modulate:a",1.0,0.25)
 	
 	
 	
@@ -74,10 +72,9 @@ func hide_screen():
 	root.save_active = false
 	var tween: Tween = create_tween()
 	
-	var tween_ons: Array = root.containers + [$"../Target",$"../Equation/equals"]
+	var tween_ons: Array = root.containers + [$"../Target",$"../Equation/equals",$"../Equation/Recall Tile"]
 	tween_ons.shuffle()
 	
-	tween.tween_property($Hide,"modulate:a",0.0,0.1)
 	tween.tween_property($Stats,"modulate:a",0.0,0.1)
 	tween.tween_property($Fade,"modulate:a",0.0,0.1)
 	

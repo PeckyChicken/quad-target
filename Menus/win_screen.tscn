@@ -139,17 +139,13 @@ text = "Copied to clipboard"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Hide" type="TextureButton" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
-grow_horizontal = 0
+[node name="Hide" type="TextureButton" parent="Stats"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 texture_normal = ExtResource("5_26557")
 stretch_mode = 4
 
 [connection signal="pressed" from="Stats/VBoxContainer/Switch" to="." method="_on_switch_pressed"]
 [connection signal="pressed" from="Stats/Share" to="." method="share"]
-[connection signal="pressed" from="Hide" to="." method="hide_screen"]
+[connection signal="pressed" from="Stats/Hide" to="." method="hide_screen"]
