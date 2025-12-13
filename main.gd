@@ -233,9 +233,9 @@ func check_win(tile:Tile):
 		solution = create_solution(tile.history) + " = " + str(tile.number)
 		create_win_screen(timer,moves,solution)
 		if save_active:
-			save_active = false
 			Save.save(save_name,{"moves":moves,"time":timer,"solution":solution},date,total_numbers,target,difficulty in wins)
 			Save.save_cache(difficulty,wins)
+			save_active = false
 		
 		get_tree().paused = true
 
