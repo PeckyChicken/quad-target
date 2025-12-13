@@ -19,9 +19,7 @@ func _on_click(event: InputEvent):
 	if event is InputEventMouseButton and event.button_index in [MOUSE_BUTTON_WHEEL_UP,MOUSE_BUTTON_WHEEL_DOWN]:
 		return
 	if event.is_pressed():
-		Events.PlaySound.emit("pick_up_operation",global_position)
-	else:
-		Events.PlaySound.emit("drop_operation",global_position)
+		Events.PlaySound.emit("recall",global_position)
 		Events.ResetTiles.emit()
 		await get_tree().process_frame
 		add_move()
