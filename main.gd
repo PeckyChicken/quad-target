@@ -47,6 +47,7 @@ var tile_scale = Vector2.ONE
 const WEEKDAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
 const MONTHS = ["January", "February", "March", "April", "May", "June",
 			  "July", "August", "September", "October", "November", "December"]
+const GITHUB_LINK = &"https://github.com/PeckyChicken/quad-target/issues"
 
 var __ := 0
 
@@ -233,9 +234,9 @@ func check_win(tile:Tile):
 		solution = create_solution(tile.history) + " = " + str(tile.number)
 		create_win_screen(timer,moves,solution)
 		if save_active:
-			save_active = false
 			Save.save(save_name,{"moves":moves,"time":timer,"solution":solution},date,total_numbers,target,difficulty in wins)
 			Save.save_cache(difficulty,wins)
+			save_active = false
 		
 		get_tree().paused = true
 
@@ -324,3 +325,10 @@ func _input(_event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	timer += delta
+
+
+func _on_github_pressed() -> void:
+	if OS.has_feature("web"):
+		JavaScriptBridge.eval(GITHUB_LINK)
+	else:
+		OS.shell_open(GITHUB_LINK)
