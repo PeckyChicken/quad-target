@@ -11,7 +11,6 @@ func _ready() -> void:
 
 func rescale(new_scale):
 	super(new_scale)
-	$Text.add_theme_font_size_override("normal_font_size",70 * new_scale.x/100)
 
 func return_home():
 	return

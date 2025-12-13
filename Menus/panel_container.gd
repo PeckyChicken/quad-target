@@ -22,14 +22,18 @@ func date_selected(date,__):
 	date["minute"] = 0
 	date["second"] = 0
 	date["weekday"] = get_weekday(date)
+	
+	refresh_scene($"..".difficulty,$"..".number_count,date)
+
+func refresh_scene(difficulty=$"..".difficulty,number_count=$"..".number_count,date=get_parent().date):
 	var new_scene: Root
 	if $".." is Mobile:
 		new_scene = MOBILE_SCENE.instantiate()
 	else:
 		new_scene = MAIN_SCENE.instantiate()
 	
-	new_scene.difficulty = $"..".difficulty
-	new_scene.number_count = $"..".number_count
+	new_scene.difficulty = difficulty
+	new_scene.number_count = number_count
 	new_scene.date = date
 	new_scene.date_override = true
 	get_tree().root.add_child(new_scene)
@@ -41,3 +45,12 @@ func date_selected(date,__):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	pass
+
+
+func _on_delete_pressed() -> void:
+	var save_file = ConfigFile.new()
+	save_file.save("user://hard_mode_save.cfg")
+	save_file.save("user://easy_mode_save.cfg")
+	save_file.save("user://quint_target_mode_save.cfg")
+	save_file.save("user://cache.cfg")
+	refresh_scene()

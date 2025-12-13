@@ -38,7 +38,6 @@ theme_override_font_sizes/font_size = 50
 expand_icon = true
 
 [node name="Share" parent="Stats" index="1"]
-size_flags_horizontal = 8
 theme_override_font_sizes/font_size = 50
 
 [node name="copied" parent="Stats/Share" index="0"]
@@ -47,12 +46,10 @@ offset_right = 538.0
 offset_bottom = 16.0
 theme_override_font_sizes/normal_font_size = 40
 
+[node name="Hide" parent="Stats" index="2"]
+custom_minimum_size = Vector2(60, 60)
+stretch_mode = 0
+
 [node name="Share" type="Node" parent="." index="2"]
 script = ExtResource("3_2h8jb")
 metadata/_custom_type_script = "uid://cwbi5d7gmuvn7"
-
-[node name="Hide" parent="." index="3"]
-offset_left = -178.0
-offset_top = 55.0
-offset_right = -138.0
-offset_bottom = 95.0
