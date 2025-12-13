@@ -329,6 +329,6 @@ func _process(delta: float) -> void:
 
 func _on_github_pressed() -> void:
 	if OS.has_feature("web"):
-		JavaScriptBridge.eval(GITHUB_LINK)
+		JavaScriptBridge.eval("window.open('%s', '_blank').focus()"%[GITHUB_LINK])
 	else:
 		OS.shell_open(GITHUB_LINK)
