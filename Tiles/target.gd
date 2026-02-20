@@ -29,7 +29,7 @@ func _ready() -> void:
 		
 		while root.target == -1:
 			root.starting_numbers = create_numbers(root.puzzle_seed)
-			root.target = create_target(root.starting_numbers,root.puzzle_seed)
+			root.target = create_target(root.starting_numbers,root.puzzle_seed,10**int(root.difficulty==Root.Difficulty.harder))
 			root.puzzle_seed += 1
 		
 		root.puzzle_seed -= 1
@@ -41,10 +41,11 @@ func create_numbers(puzzle_seed:int=-1) -> Array[int]:
 	if puzzle_seed != -1:
 		seed(puzzle_seed)
 	var numbers: Array[int] = []
+	var harder_mode := root.difficulty==Root.Difficulty.harder
 	for __ in range(root.number_count):
-		var n = randi_range(number_range.x,number_range.y)
+		var n = randi_range(number_range.x*(10**int(harder_mode)),number_range.y*(10**int(harder_mode)))
 		while n in numbers:
-			n = randi_range(number_range.x,number_range.y)
+			n = randi_range(number_range.x*(10**int(harder_mode)),number_range.y*(10**int(harder_mode)))
 		numbers.append(n)
 	
 	numbers.sort()
@@ -138,14 +139,15 @@ func check_one_operation(numbers,target):
 					return true
 	return false
 
-func create_target(numbers: Array[int],puzzle_seed:int) -> int:
+func create_target(numbers: Array[int],puzzle_seed:int,multiplier=1) -> int:
+	var local_target_range = target_range*multiplier
 	numbers = numbers.duplicate()
 	var target: int = -1
 	var attempts: int = 0
 	var start = true
 	
 	seed(puzzle_seed)
-	while start or target in numbers or target_range.x > target or target_range.y < target or check_one_operation(numbers,target) or (root.difficulty != Root.Difficulty.easy and is_possible(numbers,["+","-"],target)):
+	while start or target in numbers or local_target_range.x > target or local_target_range.y < target or check_one_operation(numbers,target) or (root.difficulty != Root.Difficulty.easy and is_possible(numbers,["+","-"],target)):
 		if attempts >= 50:
 			return -1
 		attempts += 1

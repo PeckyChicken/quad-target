@@ -16,9 +16,9 @@ var target_tile: NumberTile
 enum Difficulty {
 	easy,
 	hard,
-	quint_target
+	harder
 }
-var difficulty := Difficulty.hard
+var difficulty := Difficulty.harder
 
 var save_name: String
 
@@ -71,8 +71,6 @@ func _ready() -> void:
 		save_cache()
 	else:
 		reload_cache(Save.load_cache())
-	if difficulty == Difficulty.quint_target:
-		number_count = 5
 	save_name = "%s_mode_save" % [Difficulty.keys()[difficulty]]
 	save_data = Save.load_save(save_name)
 	if save_data["success"]:
@@ -195,7 +193,7 @@ func reload_save(data:Dictionary):
 	date = Time.get_datetime_dict_from_unix_time(data["date"])
 	target = data["target"]
 	
-	number_count = 5 if difficulty == Difficulty.quint_target else 4
+	number_count = 4
 	starting_numbers = data["numbers"]
 	starting_numbers.sort()
 
@@ -241,10 +239,7 @@ func check_win(tile:Tile):
 		get_tree().paused = true
 
 func set_date():
-	if difficulty == Difficulty.quint_target:
-		$Info/Title.text = "Quint Target"
-	else:
-		$Info/Title.text = "Quad Target"
+	$Info/Title.text = "Quad Target"
 	$Info/Date.text = "%s, %d %s %d" % [
 		WEEKDAYS[date.weekday],
 		date.day,
