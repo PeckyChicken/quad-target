@@ -20,7 +20,7 @@ var styles: Dictionary[String,StyleBox] = {
 const DIFFICULTY_TOOLTIPS: Dictionary[Root.Difficulty,String] = {
 	Root.Difficulty.easy: "Puzzles in easy mode only require addition and subtraction.",
 	Root.Difficulty.hard: "Puzzles in hard mode always require a multiplication.",
-	Root.Difficulty.quint_target: "Quint targets require 5 numbers and a multiplication."}
+	Root.Difficulty.harder: "Puzzles in harder mode use 3-digit numbers and always require a multiplication."}
 
 func _ready() -> void:
 	await get_tree().process_frame
@@ -56,12 +56,12 @@ func create_difficulty_buttons():
 	var difficulties: Array[String]
 	difficulties.append_array(root.Difficulty.keys())
 	for difficulty in root.Difficulty.values():
-		if difficulty == root.Difficulty.quint_target and root.Difficulty.hard not in root.wins:
+		if difficulty == root.Difficulty.harder and root.Difficulty.hard not in root.wins:
 			continue
 		
 		var title: String = root.Difficulty.keys()[difficulty]
 		var new_button := Button.new()
-		new_button.text = title.capitalize() + ("" if difficulty == root.Difficulty.quint_target else " Mode")
+		new_button.text = title.capitalize() + " Mode"
 		
 		
 		if difficulty in root.wins:

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://7fqrmohd2q3k"
-path="res://.godot/imported/quint_target_mode.svg-24af64367e7663fd4b88932886364165.ctex"
+path="res://.godot/imported/harder_mode.svg-75916ba7a2e98ec40042b35b6e23628d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Icons/quint_target_mode.svg"
-dest_files=["res://.godot/imported/quint_target_mode.svg-24af64367e7663fd4b88932886364165.ctex"]
+source_file="res://Icons/harder_mode.svg"
+dest_files=["res://.godot/imported/harder_mode.svg-75916ba7a2e98ec40042b35b6e23628d.ctex"]
 
 [params]
 

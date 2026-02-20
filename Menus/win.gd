@@ -14,8 +14,8 @@ var image_load_string: String = "[img width=25]"
 
 const MONTHS := ["January","February","March","April","May","June","July","August","September","October","November","December"]
 
-const SWITCHES: Dictionary[Root.Difficulty,Root.Difficulty] = {Root.Difficulty.easy:Root.Difficulty.hard,Root.Difficulty.hard:Root.Difficulty.quint_target,Root.Difficulty.quint_target:Root.Difficulty.quint_target}
-const DIFFICULTY_EMOJIS = {Root.Difficulty.easy:"😌 ",Root.Difficulty.hard:"😖 ",Root.Difficulty.quint_target:"💀 "}
+const SWITCHES: Dictionary[Root.Difficulty,Root.Difficulty] = {Root.Difficulty.easy:Root.Difficulty.hard,Root.Difficulty.hard:Root.Difficulty.harder,Root.Difficulty.harder:Root.Difficulty.harder}
+const DIFFICULTY_EMOJIS = {Root.Difficulty.easy:"😌 ",Root.Difficulty.hard:"😖 ",Root.Difficulty.harder:"💀 "}
 
 var text_fade_tween: Tween
 
@@ -37,9 +37,8 @@ func _ready() -> void:
 	$Stats/VBoxContainer/Switch.text = "Play %s?" % [switch_mode.capitalize()]
 	$Stats/VBoxContainer/Switch.icon = load("res://Icons/%s_mode.svg" % switch_mode)
 	
-	if root.difficulty == Root.Difficulty.quint_target:
+	if root.difficulty == Root.Difficulty.harder:
 		$Stats/VBoxContainer/Switch.hide()
-		$Stats/VBoxContainer/Congratulations.text = "Quint Target solved!"
 	
 	fade_on()
 
@@ -115,7 +114,7 @@ func share():
 		date.year
 	]
 	
-	var formatted_name = "Quint" if root.difficulty == Root.Difficulty.quint_target else "Quad"
+	var formatted_name = "Quad"
 	
 	var mode: String
 
