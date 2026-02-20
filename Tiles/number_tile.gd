@@ -35,6 +35,8 @@ func find_overlap():
 		return
 
 func add_self_to_number_list():
+	if parent_container is AnswerContainer:
+		return
 	if not draggable:
 		return
 	await get_tree().process_frame

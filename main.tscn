@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dfxrgpbx000de"]
+[gd_scene format=3 uid="uid://dfxrgpbx000de"]
 
 [ext_resource type="Script" uid="uid://puvllg6kifdy" path="res://main.gd" id="1_h2yge"]
 [ext_resource type="Script" uid="uid://dus01hhunb1nf" path="res://Containers/expression.gd" id="2_7mycd"]
@@ -47,7 +47,7 @@ func _process(_delta: float) -> void:
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vivmo"]
 
-[node name="Control" type="Control"]
+[node name="Control" type="Control" unique_id=1207465308]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -58,7 +58,7 @@ grow_vertical = 2
 theme = SubResource("Theme_ig7tw")
 script = ExtResource("1_h2yge")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1923843088]
 z_index = -10
 layout_mode = 1
 anchors_preset = 15
@@ -71,14 +71,14 @@ theme_type_variation = &"background"
 color = Color(0.0705882, 0.0705882, 0.0705882, 1)
 metadata/_edit_lock_ = true
 
-[node name="Info" type="VBoxContainer" parent="."]
+[node name="Info" type="VBoxContainer" parent="." unique_id=520309340]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 50.0
 grow_horizontal = 2
 
-[node name="Title" type="RichTextLabel" parent="Info"]
+[node name="Title" type="RichTextLabel" parent="Info" unique_id=2090568123]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 17
 text = "If you are seeing this text in-game then you are witnessing a bug.
@@ -87,7 +87,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Date" type="RichTextLabel" parent="Info"]
+[node name="Date" type="RichTextLabel" parent="Info" unique_id=1151378946]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 17
 text = "Make a report on the GitHub."
@@ -95,7 +95,7 @@ fit_content = true
 horizontal_alignment = 1
 vertical_alignment = 2
 
-[node name="Difficulty" type="RichTextLabel" parent="Info"]
+[node name="Difficulty" type="RichTextLabel" parent="Info" unique_id=1133742730]
 layout_mode = 2
 theme_override_font_sizes/normal_font_size = 17
 bbcode_enabled = true
@@ -106,7 +106,7 @@ autowrap_mode = 0
 horizontal_alignment = 1
 script = SubResource("GDScript_dg77c")
 
-[node name="Equation" type="BoxContainer" parent="."]
+[node name="Equation" type="BoxContainer" parent="." unique_id=311957577]
 process_mode = 1
 layout_mode = 1
 anchors_preset = 8
@@ -123,19 +123,19 @@ grow_vertical = 2
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="Recall Tile" parent="Equation" instance=ExtResource("2_w48qg")]
+[node name="Recall Tile" parent="Equation" unique_id=1281770332 instance=ExtResource("2_w48qg")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 type = 3
 
-[node name="Expression" type="PanelContainer" parent="Equation"]
+[node name="Expression" type="PanelContainer" parent="Equation" unique_id=707709265]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("2_kek77")
 
-[node name="Symbols" type="HBoxContainer" parent="Equation/Expression"]
+[node name="Symbols" type="HBoxContainer" parent="Equation/Expression" unique_id=1968256531]
 modulate = Color(2, 2, 2, 1)
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
@@ -148,7 +148,7 @@ script = ExtResource("2_7mycd")
 allowed_tiles = Array[int]([0, 1, 2])
 container_type = 2
 
-[node name="Label" type="RichTextLabel" parent="Equation/Expression"]
+[node name="Label" type="RichTextLabel" parent="Equation/Expression" unique_id=1053710541]
 layout_mode = 2
 mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 16
@@ -156,20 +156,20 @@ text = "Expression"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="equals" parent="Equation" instance=ExtResource("5_7mycd")]
+[node name="equals" parent="Equation" unique_id=6958474 instance=ExtResource("5_7mycd")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 operation = "="
 type = 3
 
-[node name="Answer" type="PanelContainer" parent="Equation"]
+[node name="Answer" type="PanelContainer" parent="Equation" unique_id=1153333324]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("2_kek77")
 
-[node name="Symbols" type="HBoxContainer" parent="Equation/Answer"]
+[node name="Symbols" type="HBoxContainer" parent="Equation/Answer" unique_id=786536610]
 modulate = Color(2, 2, 2, 1)
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
@@ -183,7 +183,7 @@ max_size = 1
 allowed_tiles = Array[int]([2, 0])
 container_type = 3
 
-[node name="Label" type="RichTextLabel" parent="Equation/Answer"]
+[node name="Label" type="RichTextLabel" parent="Equation/Answer" unique_id=440449907]
 layout_mode = 2
 mouse_filter = 2
 theme_override_font_sizes/normal_font_size = 16
@@ -191,7 +191,7 @@ text = "Answer"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Storage" type="PanelContainer" parent="."]
+[node name="Storage" type="PanelContainer" parent="." unique_id=68913553]
 process_mode = 1
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 1
@@ -207,7 +207,7 @@ grow_horizontal = 2
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("2_kek77")
 
-[node name="Symbols" type="HBoxContainer" parent="Storage"]
+[node name="Symbols" type="HBoxContainer" parent="Storage" unique_id=1567654439]
 modulate = Color(2, 2, 2, 1)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -219,7 +219,7 @@ script = ExtResource("6_w48qg")
 allowed_tiles = Array[int]([2, 0])
 container_type = 1
 
-[node name="Operations" type="PanelContainer" parent="."]
+[node name="Operations" type="PanelContainer" parent="." unique_id=1610305825]
 process_mode = 1
 custom_minimum_size = Vector2(110, 110)
 layout_mode = 1
@@ -237,7 +237,7 @@ size_flags_horizontal = 3
 mouse_filter = 2
 theme_override_styles/panel = ExtResource("2_kek77")
 
-[node name="Symbols" type="HBoxContainer" parent="Operations"]
+[node name="Symbols" type="HBoxContainer" parent="Operations" unique_id=319310337]
 modulate = Color(2, 2, 2, 1)
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
@@ -250,7 +250,7 @@ script = ExtResource("7_272bh")
 max_size = 6
 allowed_tiles = Array[int]([2, 1])
 
-[node name="Target" type="PanelContainer" parent="."]
+[node name="Target" type="PanelContainer" parent="." unique_id=1285956875]
 process_mode = 1
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 1
@@ -268,7 +268,7 @@ mouse_filter = 2
 theme_override_styles/panel = ExtResource("2_kek77")
 script = ExtResource("8_kek77")
 
-[node name="Symbols" type="HBoxContainer" parent="Target"]
+[node name="Symbols" type="HBoxContainer" parent="Target" unique_id=886269306]
 modulate = Color(2, 2, 2, 1)
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
@@ -282,18 +282,18 @@ max_size = 1
 allowed_tiles = Array[int]([0, 1, 2])
 container_type = 2
 
-[node name="Menu" parent="." instance=ExtResource("10_ycdy4")]
+[node name="Menu" parent="." unique_id=1981437103 instance=ExtResource("10_ycdy4")]
 layout_mode = 1
 anchors_preset = -1
 
-[node name="MenuListButton" type="TextureButton" parent="."]
+[node name="MenuListButton" type="TextureButton" parent="." unique_id=1130100995]
 layout_mode = 1
 offset_right = 31.0
 offset_bottom = 31.0
 stretch_mode = 0
 script = ExtResource("13_vivmo")
 
-[node name="Close" type="TextureRect" parent="MenuListButton"]
+[node name="Close" type="TextureRect" parent="MenuListButton" unique_id=1619191087]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -303,7 +303,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("12_ycdy4")
 
-[node name="Menu" type="TextureRect" parent="MenuListButton"]
+[node name="Menu" type="TextureRect" parent="MenuListButton" unique_id=909317585]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -312,7 +312,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_dg77c")
 
-[node name="GitHub" type="Button" parent="."]
+[node name="GitHub" type="Button" parent="." unique_id=1756637026]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
