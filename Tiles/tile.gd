@@ -84,7 +84,7 @@ func add_to_container(container: NumberContainer,temp_position_override=null):
 	if container.max_size >= 0:
 		assert (container.length(false) <= container.max_size,"Container overflow error: Length: %s, Max Size: %s, Contents: %s" % [container.length(),container.max_size,str(container.get_children())])
 	
-	var temp_position
+	var temp_position: Vector2
 	
 	if temp_position_override:
 		temp_position = temp_position_override
