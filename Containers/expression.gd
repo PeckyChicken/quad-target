@@ -7,14 +7,19 @@ var answer: Tile
 @onready var number_tile: PackedScene = load("res://Tiles/number_tile.tscn")
 @onready var error_tile: PackedScene = load("res://Tiles/error_tile.tscn")
 
-var parser := Expression.new()
+var parser := Parser.new()
 
 var error_outputs: Dictionary[String,String] = {"Division by 0":"###","Unparsable":"!","Not whole":"###"}
+
+var num_components: int = 0
 
 func _ready() -> void:
 	super()
 	await get_tree().process_frame
 	$"../Label".add_theme_font_size_override("normal_font_size",16 * root.tile_scale.x)
+	
+func _tile_added():
+	pass
 
 func delete_previous_answer():
 	answer.queue_free()
@@ -58,9 +63,11 @@ func create_expression() -> String:
 			components.append(str(child.number))
 		elif child.type == Root.Tiles.OPERATION:
 			components.append(child.operation)
-	
-	var expression = " ".join(components)
-	
+	var expression: String
+	if parser.is_tokenizable(" ".join(components)):
+		expression = parser.tokenize(" ".join(components)).as_string().replace("/","÷").replace("*","×")
+	else:
+		expression = " ".join(components)
 	return expression
 
 func godotify_expression(expression: String) -> String:
@@ -136,25 +143,16 @@ func check_repeating_numbers(expression: String) -> bool:
 	return false
 
 func validate_expression(expression: String) -> Array:
-	var error = parser.parse(expression)
-	if error != OK:
+	#print(expression)
+	if not parser.is_tokenizable(expression):
 		return [false,"Unparsable"]
 	
-	if expression.count("(") != expression.count(")"):
+	var expr = parser.tokenize(expression)
+	var is_parsable = parser.is_parsable(expr)
+	if not is_parsable:
 		return [false,"Unparsable"]
 	
-	if not ["+","-","×","÷","*","/"].any(func(x):return x in expression):
-		return [false,"Unparsable"]
-	
-	if check_repeating_numbers(expression):
-		return [false,"Unparsable"]
-	
-	if check_operators(expression):
-		return [false,"Unparsable"]
-	
-	var result = parser.execute()
-	if parser.has_execute_failed():
-		return [false,parser.get_error_text()]
+	var result = parser.parse_tokenized_expression(expr).evaluate()
 	
 	if abs(result) == INF:
 		return [false,"Division by 0"]
@@ -164,11 +162,11 @@ func validate_expression(expression: String) -> Array:
 	
 	return [true,""]
 
-func calcuate_answer() -> int:
-	return int(parser.execute())
-
 func tile_added(_tile):
 	$"../Label".hide()
+	await get_tree().process_frame
+	contents_changed(_tile)
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -176,24 +174,29 @@ func _process(_delta: float) -> void:
 	if get_child_count() == 0:
 		$"../Label".show()
 	
-	var num_components = length()
+	num_components = length()
 	for child in get_children():
 		if child.type == Root.Tiles.SHADOW:
 			num_components -= 1
-
-	
-	var expression = create_expression()
-	var history = create_history()
 	
 	if num_components == 0:
 		$"../../Recall Tile".hide()
 	else:
 		$"../../Recall Tile".show()
 	
+
+func contents_changed(_node=null):
+	
+	#if node is ShadowTile:
+		#return
+	
+	var expression = create_expression()
+	var history = create_history()
+	
 	if num_components > 1:
-		var parse_check = validate_expression(godotify_expression(expression))
+		var parse_check = validate_expression(expression)
 		if parse_check[0]:
-			var output = calcuate_answer()
+			var output = parser.parse_tokenized_expression(parser.tokenize(expression)).evaluate()
 			if answer:
 				if answer is NumberTile and answer.number == output and answer.expression == expression:
 					return
