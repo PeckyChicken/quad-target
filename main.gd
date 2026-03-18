@@ -18,7 +18,7 @@ enum Difficulty {
 	hard,
 	harder
 }
-var difficulty := Difficulty.harder
+var difficulty := Difficulty.hard
 
 var save_name: String
 
@@ -63,8 +63,9 @@ var solution: String
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	#print(tokenization.stack)
+	#print(tokenization.stack,"\n",parser.parse_tokenized_expression(tokenization).output_queue,"\n",parsing.evaluate())
 	if OS.has_feature("web"):
-		print("Here")
 		get_web_params()
 	
 	if Save.cache_loaded:

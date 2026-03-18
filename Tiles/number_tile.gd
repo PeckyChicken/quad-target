@@ -81,6 +81,9 @@ func _on_click(event: InputEvent):
 func return_home():
 	if not draggable:
 		return
+	if type == Root.Tiles.ANSWER:
+		queue_free()
+		return
 	reparent(root)
 	
 	add_to_container(storage_container)
