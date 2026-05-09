@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4ik4o11223i2"]
+[gd_scene format=3 uid="uid://c4ik4o11223i2"]
 
 [ext_resource type="PackedScene" uid="uid://dfxrgpbx000de" path="res://main.tscn" id="1_ytr7k"]
 [ext_resource type="Script" uid="uid://bb6bucxsrtinc" path="res://mobile.gd" id="2_vih1r"]
@@ -18,23 +18,23 @@ corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 
-[node name="Control" instance=ExtResource("1_ytr7k")]
+[node name="Control" unique_id=740017076 instance=ExtResource("1_ytr7k")]
 script = ExtResource("2_vih1r")
 
-[node name="Info" parent="." index="1"]
+[node name="Info" parent="." index="1" unique_id=520309340]
 offset_top = 120.0
 offset_bottom = 233.0
 
-[node name="Title" parent="Info" index="0"]
+[node name="Title" parent="Info" index="0" unique_id=2090568123]
 theme_override_font_sizes/normal_font_size = 30
 
-[node name="Date" parent="Info" index="1"]
+[node name="Date" parent="Info" index="1" unique_id=1151378946]
 theme_override_font_sizes/normal_font_size = 30
 
-[node name="Difficulty" parent="Info" index="2"]
+[node name="Difficulty" parent="Info" index="2" unique_id=1133742730]
 theme_override_font_sizes/normal_font_size = 30
 
-[node name="Equation" parent="." index="2"]
+[node name="Equation" parent="." index="2" unique_id=311957577]
 custom_minimum_size = Vector2(50, 50)
 offset_left = -55.0
 offset_top = -170.0
@@ -42,34 +42,42 @@ offset_right = 55.0
 offset_bottom = 170.0
 vertical = true
 
-[node name="Expression" parent="Equation" index="1"]
+[node name="Expression" parent="Equation" index="1" unique_id=707709265]
 size_flags_horizontal = 4
 
-[node name="Label" parent="Equation/Expression" index="1"]
+[node name="Label" parent="Equation/Expression" index="1" unique_id=1053710541]
 custom_minimum_size = Vector2(100, 100)
 
-[node name="Answer" parent="Equation" index="3"]
+[node name="Answer" parent="Equation" index="3" unique_id=1153333324]
 size_flags_horizontal = 4
 
-[node name="Label" parent="Equation/Answer" index="1"]
+[node name="Label" parent="Equation/Answer" index="1" unique_id=440449907]
 custom_minimum_size = Vector2(100, 100)
 
-[node name="Storage" parent="." index="3"]
+[node name="Storage" parent="." index="3" unique_id=68913553]
 pivot_offset = Vector2(55, 0)
 
-[node name="Menu" parent="." index="6"]
+[node name="Menu" parent="." index="6" unique_id=1981437103]
 offset_left = 3.0
 offset_top = 75.0
 offset_right = 37.0
 offset_bottom = 113.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_bj8h8")
 
-[node name="MenuListButton" parent="." index="7"]
+[node name="MenuListButton" parent="." index="7" unique_id=1130100995]
 offset_left = 53.0
 offset_top = 46.0
 offset_right = 153.0
 offset_bottom = 146.0
 
-[node name="Menu" parent="MenuListButton" index="1"]
+[node name="Menu" parent="MenuListButton" index="1" unique_id=909317585]
 offset_top = 12.0
 offset_bottom = 12.0
+
+[node name="GitHub" parent="." index="8" unique_id=1756637026]
+anchors_preset = -1
+anchor_left = 0.9
+anchor_top = 0.95
+anchor_right = 0.95
+offset_left = -228.79993
+theme_override_font_sizes/font_size = 60
