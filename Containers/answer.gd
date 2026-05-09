@@ -45,8 +45,12 @@ func recreate_expression():
 	var expression_container: ExpressionContainer = child.expression_container
 	expression_container.return_numbers()
 	
+	print(child.expression," Before tokenization")
 	var expression = parser.tokenize(child.expression)
 	var history = child.history.duplicate()
+	
+	print(expression.as_string()," After tokenization")
+	
 	
 	assert (len(history) == len(expression.stack),"Expression %s and history %s are not the same length. Good luck debugging this, I don't know why this happened." % [expression, history])
 	
