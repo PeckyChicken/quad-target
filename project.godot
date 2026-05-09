@@ -42,7 +42,7 @@ movie_writer/movie_file="C:/Users/Benjy/OneDrive/Documents/Workspaces/Web projec
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/SharePlugin/plugin.cfg", "res://addons/calendar_button/plugin.cfg")
+enabled=PackedStringArray("res://addons/calendar_button/plugin.cfg")
 
 [input]
 

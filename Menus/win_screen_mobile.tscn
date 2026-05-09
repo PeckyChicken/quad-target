@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://b8vv2erkk11hq" path="res://Menus/win_screen.tscn" id="1_4k6vo"]
 [ext_resource type="Script" uid="uid://bh1yuk4g0uftq" path="res://Menus/win_screen_mobile.gd" id="2_mhgma"]
-[ext_resource type="Script" uid="uid://cwbi5d7gmuvn7" path="res://addons/SharePlugin/Share.gd" id="3_2h8jb"]
 
 [node name="Win Screen" instance=ExtResource("1_4k6vo")]
 script = ExtResource("2_mhgma")
