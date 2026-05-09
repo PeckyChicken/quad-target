@@ -156,7 +156,8 @@ func is_tokenizable(string:String) -> bool:
 
 func tokenize(string:String) -> TokenizedExpression:
 	if string not in token_cache:
-		assert(is_tokenizable(string),"Parser.tokenize() was called on an untokenizable string. Make sure to call Parser.is_tokenizable() before running Parser.tokenize()")
+		var tokenizable = is_tokenizable(string)
+		assert(tokenizable,"Parser.tokenize() was called on an untokenizable string. Make sure to call Parser.is_tokenizable() before running Parser.tokenize()")
 	
 	return token_cache[string]
 
@@ -197,6 +198,7 @@ func is_parsable(expr:TokenizedExpression):
 
 func parse_tokenized_expression(expr:TokenizedExpression) -> ParsedExpression:
 	if expr not in expression_cache:
-		assert(is_parsable(expr),"Parser.parse_tokenized_expression() was called on an unparsable expression. Make sure to call Parser.is_parsable() before running Parser.parse_tokenized_expression()")
+		var parsable = is_parsable(expr)
+		assert(parsable,"Parser.parse_tokenized_expression() was called on an unparsable expression. Make sure to call Parser.is_parsable() before running Parser.parse_tokenized_expression()")
 	
 	return expression_cache[expr]
