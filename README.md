@@ -7,3 +7,6 @@ Each day brings 3 new puzzles. An easy one with no multiplication, a hard one wi
 
 In each puzzle, you are given 4 numbers and a target. The goal is to combine the 4 numbers with the correct operations to create the target.
 The UI is a simple drag-and-drop design, dragging numbers and operations into the expression box to produce an answer.
+
+Copyright © 2026 PeckyChicken
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License.
